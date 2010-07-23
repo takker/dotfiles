@@ -3,10 +3,15 @@
 (if (and (window-system)
          (string-match "^23\." emacs-version))
     (progn
+      ;;** フォント設定
+      (set-default-font "Monaco-9")
+      (set-fontset-font (frame-parameter nil 'font)
+                        'japanese-jisx0208
+                        '("M+1P+IPAG" . "unicode-bmp"))
       ;;** フレームサイズ
       (setq default-frame-alist
             (append
-             '((width  . 60) (height . 30))
+             '((width  . 80) (height . 35))
              default-frame-alist))
       ;;** font-lock
       (global-font-lock-mode t)
