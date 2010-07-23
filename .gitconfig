@@ -2,7 +2,7 @@
 	name = KASHIO Takaaki
 	email = t.kashio@gmail.com
 [core]
-	editor = emacs
+	editor = vi
 [color]
 	ui = auto
 [alias]
