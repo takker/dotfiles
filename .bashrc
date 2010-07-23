@@ -90,6 +90,11 @@ function cd() {
   ls --color=auto
 }
 
+# mkdirの直後にcd
+function mkcd() {
+  [ -n "$1" ] && mkdir -p "$@" && cd "$1";
+}
+
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
