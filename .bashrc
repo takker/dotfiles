@@ -84,6 +84,12 @@ alias la='ls -A'
 alias l='ls -CF'
 alias sl='ls -AlF'
 
+# cdの直後にls
+function cd() {
+  builtin cd $1
+  ls --color=auto
+}
+
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
