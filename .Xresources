@@ -1,0 +1,5 @@
+Emacs.geometry: 80x35-10+5
+Emacs*FontBackend: xft
+Emacs*font: Monaco-9
+
+Emacs*useXIM: false
