@@ -1,4 +1,4 @@
-;;; -*- mode: emacs-lisp; coding: utf-8; indent-tabs-mode: Nil; -*-
+;;; -*- mode: emacs-lisp; coding: utf-8; indent-tabs-mode: nil; -*-
 (setq outline-minor-mode-prefix "\C-c\C-o")
 
 ;; elisp-mode
