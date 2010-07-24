@@ -8,6 +8,8 @@
 (global-set-key [(C >)] 'end-of-buffer)
 (global-set-key [(C <)] 'beginning-of-buffer)
 
+(global-set-key "\C-\\" 'ibus-toggle)   ; C-\ でmozcのトグル
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; ctl-x-map
 ;;* C-x C-d => 別のウィンドウでdired
