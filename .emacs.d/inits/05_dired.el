@@ -5,6 +5,7 @@
 ;;** C-s => dired-isearch-filenames
 (add-hook 'dired-mode-hook
           (lambda ()
+            (local-set-key (kbd "O") 'anything-c-moccur-dired-do-moccur-by-moccur)
             (define-key dired-mode-map (kbd "o")   'dired-display-file)
             (define-key dired-mode-map (kbd "C-o") 'other-window)
             (define-key dired-mode-map (kbd "C-s") 'dired-isearch-filenames)))
