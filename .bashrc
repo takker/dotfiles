@@ -13,8 +13,14 @@ HISTCONTROL=ignoredups:ignorespace
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=10000
+HISTFILESIZE=20000
+
+# add timestamp for HISTFILE
+HISTTIMEFORMAT="%y/%m/%d %T "
+
+# don't record these commands to history
+HISTIGNORE=exit:history
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -84,13 +90,13 @@ alias la='ls -A'
 alias l='ls -CF'
 alias sl='ls -AlF'
 
-# cdの直後にls
+# Perform ls just after cd
 function cd() {
   builtin cd $1
   ls --color=auto
 }
 
-# mkdirの直後にcd
+# Perform cd just after mkdir
 function mkcd() {
   [ -n "$1" ] && mkdir -p "$@" && cd "$1";
 }
