@@ -8,11 +8,6 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
-# rvmによる環境変数の設定
-if [[ -s /home/taka/.rvm/scripts/rvm ]] ; then
-    source /home/taka/.rvm/scripts/rvm ;
-fi
-
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
     # include .bashrc if it exists
