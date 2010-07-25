@@ -29,12 +29,27 @@
 (descbinds-anything-install)
 
 ;;; anything関連のキーバインド設定
-;;* M-o   => moccur
-;;* C-M-s => isearch-forward
-;;* C-M-r => isearch-backward
-(global-set-key (kbd "M-o") 'anything-c-moccur-occur-by-moccur)
-(global-set-key (kbd "C-M-s") 'anything-c-moccur-isearch-forward)
-(global-set-key (kbd "C-M-r") 'anything-c-moccur-isearch-backward)
+;;* anythingコマンドのprefixを C-x C-a に設定
+(define-prefix-command 'my-anything-map)
+(global-set-key [(C x)(C a)] 'my-anything-map)
 
-(global-set-key [(C x)(C f)] 'anything-for-files)
-(global-set-key [(C x)(C b)] 'anything-buffers+)
+;;** C-o => moccur
+(define-key my-anything-map (kbd "C-o") 'anything-c-moccur-occur-by-moccur)
+;;** C-s => isearch-forward
+(define-key my-anything-map (kbd "C-s") 'anything-c-moccur-isearch-forward)
+;;** C-r => isearch-backward
+(define-key my-anything-map (kbd "C-r") 'anything-c-moccur-isearch-backward)
+;;** C-f => anything-for-files
+(define-key my-anything-map (kbd "C-f") 'anything-for-files)
+;;** C-b => anything-buffers+
+(define-key my-anything-map (kbd "C-b") 'anything-buffers+)
+;;** g   => anything-grep
+(define-key my-anything-map (kbd "g") 'anything-grep)
+;;** C-/ => anything-resume
+(define-key my-anything-map (kbd "C-/") 'anything-resume)
+;;** m   => anything-all-mark-rings
+(define-key my-anything-map (kbd "m") 'anything-all-mark-rings)
+;;** a   => anything-apropos
+(define-key my-anything-map (kbd "a") 'anything-apropos)
+;;** C-y => anything-show-kill-ring
+(define-key my-anything-map (kbd "C-y") 'anything-show-kill-ring)
