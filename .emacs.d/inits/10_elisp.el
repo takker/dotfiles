@@ -34,10 +34,6 @@
 (setq key-chord-two-keys-delay 0.04)
 (key-chord-mode 1)
 
-;;* descbinds-anything.el: キーバインドをanythingで表示
-(require 'descbinds-anything)
-(descbinds-anything-install)
-
 ;;* auto-complete.el: 補完候補を自動的に表示
 ;; http://cx4a.org/software/auto-complete/manual.ja.html
 (require 'auto-complete)

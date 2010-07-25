@@ -14,8 +14,6 @@
 ;;; ctl-x-map
 ;;* C-x C-d => 別のウィンドウでdired
 (define-key ctl-x-map [(C d)] 'ffap-dired-other-window)
-;;* C-x d => anythingでdmoccur
-(define-key ctl-x-map [(d)] 'anything-c-moccur-dmoccur)
 
 ;;* C-x C-e: eval系のprefixキーにする
 (define-prefix-command 'my-eval-map)
