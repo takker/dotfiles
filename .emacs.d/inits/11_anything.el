@@ -28,7 +28,16 @@
 (require 'descbinds-anything)
 (descbinds-anything-install)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; anything関連の設定
+;;* ホームポジションのアルファベットで候補を選択できるようにする
+(setq anything-enable-shortcuts 'alphabet)
+
 ;;; anything関連のキーバインド設定
+;;* anything-mapの設定
+;;** C-SPCは日本語入力ON/OFFなので、C-@でマークをトグル
+(define-key anything-map (kbd "C-@") 'anything-toggle-visible-mark)
+
 ;;* anythingコマンドのprefixを C-x C-a に設定
 (define-prefix-command 'my-anything-map)
 (global-set-key [(C x)(C a)] 'my-anything-map)

@@ -12,7 +12,11 @@
  '(font-lock-comment-face ((t (:foreground "goldenrod")))) ; コメント
  '(font-lock-comment-delimiter-face ((t (:foreground "goldenrod")))) ;コメント区切り
  '(minibuffer-prompt ((t (:foreground "Green")))) ;ミニバッファプロンプト
- )
+ ;;** anything関連のフェイス
+ '(anything-header ((t (:background "green" :foreground "black"))))
+ '(anything-match ((t (:background "skyblue" :foreground "black"))))
+ '(anything-file-name ((t (:foreground "white"))))
+  )
 
 ;;* 括弧の色を変える
 (setq show-paren-style 'mixed)
