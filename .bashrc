@@ -91,7 +91,7 @@ alias l='ls -CF'
 alias sl='ls -AlF'
 
 # Perform ls just after cd
-function cd() {
+function c() {
   builtin cd $1
   ls --color=auto
 }
