@@ -4,16 +4,20 @@
 (setq view-read-only t)
 (defvar pager-keybind
       `( ;; vi-like
-        ("h" . backward-word)
-        ("l" . forward-word)
+        ("a" . ,(lambda () (interactive)
+                  (let ((anything-c-moccur-enable-initial-pattern nil))
+                    (anything-c-moccur-occur-by-moccur))))
+        ("h" . backward-char)
+        ("l" . forward-char)
         ("j" . next-line)
         ("k" . previous-line)
+        ("f" . move-to-char-forward)
+        ("F" . move-to-char-backward)
         (";" . gene-word)
         ("n" . scroll-up)
         ("p" . scroll-down)
         ;; w3m-like
         ("m" . gene-word)
-        ("i" . win-delete-current-window-and-squeeze)
         ("w" . forward-word)
         ("e" . backward-word)
         ("(" . point-undo)

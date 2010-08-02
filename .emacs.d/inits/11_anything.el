@@ -20,9 +20,8 @@
 
 (setq anything-c-moccur-enable-initial-pattern t ; カーソル位置の語を最初のパターンに
       anything-c-moccur-enable-auto-look-flag t)  ;; 現在選択中の候補の位置を別のbufferに
-(add-hook 'dired-mode-hook ;dired
-          '(lambda ()
-             (local-set-key (kbd "O") 'anything-c-moccur-dired-do-moccur-by-moccur)))
+(add-hook-fn 'dired-mode-hook ;dired
+             (local-set-key (kbd "O") 'anything-c-moccur-dired-do-moccur-by-moccur))
 
 ;;* descbinds-anything.el: キーバインドをanythingで表示
 (require 'descbinds-anything)

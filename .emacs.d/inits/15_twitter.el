@@ -4,10 +4,9 @@
 ;; (require 'twittering-mode)
 
 ;; ;; キーバインドの変更
-;; (add-hook 'twittering-mode-hook
-;;           (lambda ()
+;; (add-hook-fn 'twittering-mode-hook
 ;;             (local-set-key "f" 'twittering-friends-timeline)
 ;;             (local-set-key "r" 'twittering-replies-timeline)
 ;;             (local-set-key "u" 'twittering-user-timeline)
-;;             (local-set-key "w" 'twittering-update-status-interactive)))
+;;             (local-set-key "w" 'twittering-update-status-interactive))
 

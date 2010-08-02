@@ -3,7 +3,7 @@
 (setq gdb-many-windows t)
 (setq gdb-use-separate-io-buffer t)
 ;;* 変数の上にマウスカーソルを置くと値を表示
-(add-hook 'gdb-mode-hook '(lambda () (gud-tooltip-mode t)))
+(add-hook-fn 'gdb-mode-hook (gud-tooltip-mode t))
 ;;* I/O バッファを表示
 (setq gdb-use-separate-io-buffer t)
 ;;* t にすると mini buffer に値が表示される
@@ -12,7 +12,7 @@
 (setq gdb-many-windows t)
 (setq gdb-use-separate-io-buffer t)
 ;;* 変数の上にマウスカーソルを置くと値を表示
-(add-hook 'gdb-mode-hook '(lambda () (gud-tooltip-mode t)))
+(add-hook-fn 'gdb-mode-hook (gud-tooltip-mode t))
 ;;* I/O バッファを表示
 (setq gdb-use-separate-io-buffer t)
 ;;* t にすると mini buffer に値が表示される

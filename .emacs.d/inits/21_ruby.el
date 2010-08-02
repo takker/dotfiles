@@ -17,32 +17,31 @@ the directory containing file becomes the initial working directory
 and source-file directory for your debugger." t)
 
 ;;* ruby-mode-hook
-(add-hook 'ruby-mode-hook
-	  '(lambda ()
-         (inf-ruby-keys)
-         ;;** キーバインドの追加
-         ;; -------------------------
-         ;;** C-m         newline-and-indent
-         ;;** C-j         行末に移動+C-m
-         ;;** C-c C-d     デバッガの起動
-         ;;** C-c C-c     Compile
-         (define-key ruby-mode-map [(C m)] 'ruby-reindent-then-newline-and-indent)
-         (define-key ruby-mode-map (kbd "C-j") (kbd "C-e C-m"))
-         (define-key ruby-mode-map [(C c) (C c)] 'compile)
-         (define-key ruby-mode-map [(C c) (C d)] 'rubydb)
-         (define-key ruby-mode-map [(C c) (C a)] 'ruby-beginning-of-defun)
-         ;; (define-key ruby-mode-map [(C c) (C b)] 'ruby-backward-sexp)
-         ;; (define-key ruby-mode-map [(C c) (C d)] 'ruby-insert-end)
-         ;; (define-key ruby-mode-map [(C c) (C e)] 'ruby-end-of-defun)
-         (define-key ruby-mode-map [(C c) (C f)] 'ruby-forward-sexp)
-         (define-key ruby-mode-map [(C c) (C n)] 'ruby-end-of-block)
-         (define-key ruby-mode-map [(C c) (C p)] 'ruby-beginning-of-block)
-         ;; (define-key ruby-mode-map [(C c) (C q)] 'ruby-indent-exp)
-         ))
+(add-hook-fn 'ruby-mode-hook
+             (inf-ruby-keys)
+             ;;** キーバインドの追加
+             ;; -------------------------
+             ;;** C-m         newline-and-indent
+             ;;** C-j         行末に移動+C-m
+             ;;** C-c C-d     デバッガの起動
+             ;;** C-c C-c     Compile
+             (define-key ruby-mode-map [(C m)] 'ruby-reindent-then-newline-and-indent)
+             (define-key ruby-mode-map (kbd "C-j") (kbd "C-e C-m"))
+             (define-key ruby-mode-map [(C c) (C c)] 'compile)
+             (define-key ruby-mode-map [(C c) (C d)] 'rubydb)
+             (define-key ruby-mode-map [(C c) (C a)] 'ruby-beginning-of-defun)
+             ;; (define-key ruby-mode-map [(C c) (C b)] 'ruby-backward-sexp)
+             ;; (define-key ruby-mode-map [(C c) (C d)] 'ruby-insert-end)
+             ;; (define-key ruby-mode-map [(C c) (C e)] 'ruby-end-of-defun)
+             (define-key ruby-mode-map [(C c) (C f)] 'ruby-forward-sexp)
+             (define-key ruby-mode-map [(C c) (C n)] 'ruby-end-of-block)
+             (define-key ruby-mode-map [(C c) (C p)] 'ruby-beginning-of-block)
+             ;; (define-key ruby-mode-map [(C c) (C q)] 'ruby-indent-exp)
+             )
 
 ;;* ruby-electric.el --- electric editing commands for ruby files
 (require 'ruby-electric)
-(add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode t)))
+(add-hook-fn 'ruby-mode-hook (ruby-electric-mode t))
 
 ;;* ruby-block.el
 (require 'ruby-block)

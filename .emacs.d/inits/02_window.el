@@ -43,17 +43,14 @@
       '((substring year -2) "/" month "/" day " " dayname " " 24-hours ":" minutes))
 (display-time)
 ;;** Isearch を表示しない
-(add-hook 'isearch-mode-hook
-          '(lambda () (setcar (cdr (assq 'isearch-mode minor-mode-alist)) "")))
+(add-hook-fn 'isearch-mode-hook
+             (setcar (cdr (assq 'isearch-mode minor-mode-alist)) ""))
 ;;** Texinfo を短く
-(add-hook 'texinfo-mode-hook
-          '(lambda ()
-             (setq mode-name "Texi")))
+(add-hook-fn 'texinfo-mode-hook
+             (setq mode-name "Texi"))
 ;;** scratch バッファの Lisp Interaction を短く
-(add-hook 'lisp-interaction-mode-hook
-          '(lambda ()
-             (setq mode-name "Lisp-Int")))
+(add-hook-fn 'lisp-interaction-mode-hook
+             (setq mode-name "Lisp-Int"))
 ;;** Emacs-Lisp を短く
-(add-hook 'emacs-lisp-mode-hook
-          '(lambda ()
-             (setq mode-name "Elisp")))
+(add-hook-fn 'emacs-lisp-mode-hook
+             (setq mode-name "Elisp"))

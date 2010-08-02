@@ -21,4 +21,4 @@
   (ad-activate 'flymake-post-syntax-check)
   (setq flymake-err-line-patterns flymake-js-err-line-patterns)
   (flymake-mode t))
-(add-hook 'js-mode-hook '(lambda () (flymake-js-load)))
+(add-hook-fn 'js-mode-hook (flymake-js-load))
