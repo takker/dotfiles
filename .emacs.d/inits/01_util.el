@@ -6,12 +6,14 @@
   (message "%s" (get-char-property (point) 'face)))
 (global-set-key [(C x)(f)] 'describe-face-at-point)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;* C-c d => 日付挿入
 (defun my-insert-date ()
   (interactive)
   (insert (format-time-string "%Y-%m-%dT%R:%S+09:00" (current-time))))
 (global-set-key [(C c)(d)] 'my-insert-date)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;* C-o => 他のウィンドウに移動(なければ分割)
 ;;** http://d.hatena.ne.jp/rubikitch/20100210
 (defun other-window-or-split ()
@@ -21,6 +23,7 @@
   (other-window 1))
 (global-set-key [(C o)] 'other-window-or-split)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;* M-n => n行下にスクロール
 ;;* M-p => n行上にスクロール
 (defalias 'scroll-ahead 'scroll-up)
@@ -36,8 +39,8 @@
 (global-set-key [(M p)] 'scroll-nlines-behind)
 (global-set-key [(M n)] 'scroll-nlines-ahead)
 
-;;* C-x % => match-paren
-; 対応する括弧にジャンプ
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;* C-x % => 対応する括弧にジャンプ
 (defun match-paren (arg)
   "Go to the matching paren if on a paren; otherwise insert %."
   (interactive "p")
@@ -47,10 +50,12 @@
   )
 (global-set-key [(C x) (%)] 'match-paren)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 前回ジャンプした文字と方向を覚えておくための変数
 (defvar last-search-char " ")
 (defvar last-search-direction 'forward)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;* C-z => 指定した文字(前方)にジャンプ
 (defun move-to-char-forward (arg char)
   "Move forward to the provided character."
@@ -63,6 +68,7 @@
   (backward-char 1))
 (global-set-key (kbd "C-z") 'move-to-char-forward)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;* C-S-z => 指定した文字(後方)にジャンプ
 (defun move-to-char-backward (arg char)
   "Move backward to the provided character."
@@ -73,6 +79,7 @@
     (message "Search failed: \"%c\"" char)))
 (global-set-key (kbd "C-S-z") 'move-to-char-backward)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;* C-; => 前回ジャンプした文字に繰り返しジャンプ
 (defun repeat-move-to-char (arg)
   "Repeat move-to-char toward the char and the direction last jumped."
@@ -82,6 +89,7 @@
     (move-to-char-backward arg last-search-char)))
 (global-set-key (kbd "C-;") 'repeat-move-to-char)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;* M-z => zap-to-charの改良版
 ;;** http://www.emacswiki.org/emacs/ZapUpToChar
 (defadvice zap-to-char (after my-zap-to-char-advice (arg char) activate)
@@ -90,6 +98,7 @@
   (insert char)
   (forward-char -1))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;* C-S-h => 現在のウィンドウで表示されている最初の行に移動
 ;;* C-S-m => 現在のウィンドウで表示されている中央の行に移動
 ;;* C-S-l => 現在のウィンドウで表示されている最後の行に移動
@@ -103,6 +112,7 @@
                    (move-to-window-line -1)
                    (recenter))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;* ポイントが行の最後にある場合、行全体をkill-line
 (defadvice kill-line (before kill-whole-line-if-end
                              (&optional arg))
@@ -110,6 +120,7 @@
   (if (eolp) (beginning-of-line)))
 (ad-activate 'kill-line)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;* M-o => 現在行の上に新しい行を追加
 (defadvice open-line (before open-whole-line
                              (&optional arg))
@@ -118,6 +129,7 @@
 (ad-activate 'open-line)
 (global-set-key [(M o)] 'open-line)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;* M-S-o => 現在行の次に新しい行を追加
 (defun open-next-line (&optional arg)
   "Insert a newline into the next line and leave point before it."
@@ -125,5 +137,54 @@
   (next-line 1)
   (open-line arg))
 (global-set-key [(M S o)] 'open-next-line)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;* C-w => kill-region or backward-word
+;; リージョンが活性化していればリージョン削除
+;; 非活性であれば、直前の単語を削除
+(defun kill-region-or-backward-kill-word (&optional arg)
+  "Kill region if it is activated, or kill bacward word."
+  (interactive "p")
+  (if (region-active-p)
+      (kill-region (point) (mark))
+    (backward-kill-word arg)))
+(global-set-key [(C w)] 'kill-region-or-backward-kill-word)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;* 他のユーザ所有のファイルをsudoで開き直す
+;; http://ubulog.blogspot.com/2010/08/emacs-sudo2.html
+(defun file-other-p (filename)
+  "Return t if file FILENAME created by others."
+  (/= (user-real-uid) (nth 2 (file-attributes filename))))
+
+(defun file-username (filename)
+   "Return File Owner."
+   (user-full-name (nth 2 (file-attributes filename))))
+
+(defun th-rename-tramp-buffer ()
+  (when (file-remote-p (buffer-file-name))
+    (rename-buffer
+     (format "%s:%s"
+             (file-remote-p (buffer-file-name) 'method)
+             (buffer-name)))))
+
+(add-hook 'find-file-hook
+          'th-rename-tramp-buffer)
+
+(defadvice find-file (around th-find-file activate)
+  "Open FILENAME using tramp's sudo method if it's read-only."
+  (if (and (file-other-p (ad-get-arg 0))
+           (not (file-writable-p (ad-get-arg 0)))
+           (y-or-n-p (concat "File "
+                             (ad-get-arg 0) " is read-only.  Open it as "
+                                     (file-username (ad-get-arg 0)) "? ")))
+      (th-find-file-sudo (ad-get-arg 0))
+    ad-do-it))
+
+(defun th-find-file-sudo (file)
+  "Opens FILE with root privileges."
+  (interactive "F")
+    (set-buffer (find-file (concat "/sudo:"
+                                   (file-username file) "@" (system-name) ":" file))))
 
 ;;; end-of-file

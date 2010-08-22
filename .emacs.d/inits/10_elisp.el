@@ -1,7 +1,9 @@
 ;;; -*- mode: emacs-lisp; coding: utf-8; indent-tabs-mode: nil; -*-
+;;; 10_elisp.el: 各種elispパッケージの設定
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;* ibus-mode
-; http://d.hatena.ne.jp/supermassiveblackhole/20100609/1276059762
+;; http://d.hatena.ne.jp/supermassiveblackhole/20100609/1276059762
 (require 'ibus)
 ;;** Turn on ibus-mode automatically after loading .emacs
 (add-hook 'after-init-hook 'ibus-mode-on)
@@ -13,11 +15,13 @@
 (setq ibus-cursor-color
   '("limegreen" "white" "blue"))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;* sequential-command: 同じコマンドを連続実行
 ;; http://d.hatena.ne.jp/rubikitch/20090219/sequential_command
 (require 'sequential-command-config)
 (sequential-command-setup-keys)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;* magit: gitインタフェース
 (require 'magit)
 ; http://d.hatena.ne.jp/rubikitch/20100716/git
@@ -29,12 +33,15 @@
 (global-set-key [(C x) (v) (s)] 'magit-status)
 (global-set-key [(C x) (v) (l)] 'magit-log)
 (global-set-key [(C x) (v) (b)] 'git-branch-next-action)
-;;* key-chord.el: 2つのキーの同時押しでコマンド実行
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;* key-chord: 2つのキーの同時押しでコマンド実行
 (require 'key-chord)
 (setq key-chord-two-keys-delay 0.04)
 (key-chord-mode 1)
 
-;;* auto-complete.el: 補完候補を自動的に表示
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;* auto-complete: 補完候補を自動的に表示
 ;; http://cx4a.org/software/auto-complete/manual.ja.html
 (require 'auto-complete)
 (global-auto-complete-mode t)
@@ -43,34 +50,26 @@
 (setq ac-dwim t)
 (setq ac-auto-start 3)                  ; 3文字以上入力されたら補完開始
 
-;;* browse-kill-ring.el: kill-ring の内容表示
-(require 'browse-kill-ring)
-(global-set-key [(M y)] 'browse-kill-ring)
-;; ;;** kill-ring を一行で表示
-;; (setq browse-kill-ring-display-style 'one-line)
-;;** browse-kill-ring 終了時にバッファを kill
-(setq browse-kill-ring-quit-action 'kill-and-delete-window)
-;;** 必要に応じて browse-kill-ring のウィンドウの大きさを変更
-(setq browse-kill-ring-resize-window nil)
-;;** kill-ring の内容を表示する際の区切りを指定
-(setq browse-kill-ring-separator "-------")
-; 現在選択中の kill-ring のハイライト
-(setq browse-kill-ring-highlight-current-entry t)
-;; ; 区切り文字のフェイスを指定する
-;; (setq browse-kill-ring-separator-face 'region)
-; 一覧で表示する文字数を指定． nil ならすべて表示される．
-(setq browse-kill-ring-maximum-display-length 100)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;* popup-kill-ring: kill-ringの内容をポップアップ
+(require 'popup)
+(require 'pos-tip)
+(require 'popup-kill-ring)
 
-;; color-moccur.el: バッファ一覧の検索
+(global-set-key [(M y)] 'popup-kill-ring)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;* color-moccur: バッファ一覧の検索
 (require 'color-moccur)
-; C-c m: moccur
+;;** C-c m => moccur
 (global-set-key [(C x) (m)] 'moccur)
 (global-set-key [(C x) (d)] 'dmoccur)
-; moccur で r を押して編集可能にする
+;;** moccur で r を押して編集可能にする
 (load "moccur-edit")
 
-;; highlight-completion.el: ファイル名補完
-; http://www.bookshelf.jp/cgi-bin/goto.cgi?file=meadow&node=highlight-completion
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;* highlight-completion: ファイル名補完
+;; http://www.bookshelf.jp/cgi-bin/goto.cgi?file=meadow&node=highlight-completion
 (setq hc-ctrl-x-c-is-completion t)
 (require 'highlight-completion)
 (highlight-completion-mode 1)
@@ -82,15 +81,18 @@
   (if name
       ad-do-it))
 
-;; toggle.el: 開いているファイルと関連するファイルとのトグル
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;* toggle: 開いているファイルと関連するファイルとのトグル
 ; (require 'toggle)
 
-;; word-count.el: 単語数をカウント,M-+ でマイナーモードを ON
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;* word-count: 単語数をカウント,M-+ でマイナーモードを ON
 (autoload 'word-count-mode "word-count"
           "Minor mode to count words." t nil)
 (global-set-key [(M +)] 'word-count-mode)
 
-;; iswitchb の設定
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;* iswitchb の設定
 (require 'iswitchb)
 (iswitchb-default-keybindings)
 (defadvice iswitchb-exhibit
@@ -128,6 +130,7 @@
                           (t
                            (concat "mode: " mode-name " Mode"))))))))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;* ibuffer.el バッファの機能拡張
 (require 'ibuffer)
 (define-key ctl-x-map "\C-l" 'ibuffer)
@@ -167,20 +170,22 @@
 (global-set-key [?\C-,] 'my-grub-buffer)
 (global-set-key [?\C-.] 'my-bury-buffer)
 
-;; mcomplete.el: M-xの補完
-(require 'mcomplete)
-(require 'cl)
-(load "mcomplete-history")
-(turn-on-mcomplete-mode)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;* mcomplete: M-xの補完
+;; (require 'mcomplete)
+;; (require 'cl)
+;; (load "mcomplete-history")
+;; (turn-on-mcomplete-mode)
 
-;;* auto-save-buffers.el: 全バッファの自動保存
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;* auto-save-buffers: 全バッファの自動保存
 (require 'auto-save-buffers)
 (run-with-idle-timer 2.0 t 'auto-save-buffers) ; 2秒ごとに自動保存
 
-;;* grep-edit.el: grepの結果を編集
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;* grep-edit: grepの結果を編集
 (require 'grep)
 (require 'grep-edit)
-
 ;;** http://d.hatena.ne.jp/rubikitch/20081025/1224869598
 ;; (defadvice grep-edit-change-file (around inhibit-read-only activate)
 ;;   ""
@@ -195,3 +200,19 @@
 ;;   (set (make-local-variable 'inhibit-read-only) t)
 ;;   )
 ;; (add-hook 'grep-setup-hook 'my-grep-edit-setup t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;* hiwin: 現在のバッファを目立たせる
+(require 'hiwin)
+;;** hiwin-modeを有効にする
+(hiwin-mode)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;* sdic-inline: カーソル位置にある単語を自動で翻訳しミニバッファに表示
+;; http://d.hatena.ne.jp/khiker/20100303/sdic_inline
+;; C-c C-p => カーソル下の単語の意味をツールチップを使って表示
+(require 'sdic-inline)
+(sdic-inline-mode t)   ; sdic-inline モードの起動
+;;** 辞書ファイルの設定
+(setq sdic-inline-eiwa-dictionary "/usr/share/dict/gene.sdic"
+      sdic-inline-waei-dictionary "/usr/share/dict/jedict.sdic")

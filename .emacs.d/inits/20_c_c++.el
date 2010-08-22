@@ -131,7 +131,7 @@
   ;; (setq command-command "gmake -k ")
 
   ;;** 自動スペルチェック
-  (flyspell-mode t)
+;;  (flyspell-mode nil)
   ;;** c-mode の outline
   (autoload 'c-outline "c-outline" nil t)
   )

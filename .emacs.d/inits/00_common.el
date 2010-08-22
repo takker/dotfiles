@@ -65,6 +65,9 @@
 ;;* tab-width を 4 に
 (setq-default tab-width 4)
 
+;;* フレームタイトルの設定
+(setq frame-title-format "%b")
+
 ;;* 起動直後の*scratch* buffer に入る文字列をなくす
 (setq initial-scratch-message nil)
 
@@ -88,10 +91,19 @@
 (setq truncate-partial-width-windows nil)
 
 ;;* 一行ずつスクロール
+(setq vertical-centering-font-regexp ".*")
+(setq scroll-conservatively 35)
+(setq scroll-margin 0)
 (setq scroll-step 1)
 
+;;* スクロール時にカーソル位置を保持
+(setq scroll-preserve-screen-position t)
+
 ;;* 行番号を表示
-(global-linum-mode nil)
+(global-linum-mode t)
+;;** 行番号のフォーマット
+(set-face-attribute 'linum nil :foreground "red" :height 0.9)
+(setq linum-format "%4d")
 
 ;;* Fill column
 (setq default-fill-column 72)
