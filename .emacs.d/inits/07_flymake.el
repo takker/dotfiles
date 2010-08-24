@@ -12,3 +12,12 @@
   (display-error-message))
 (ad-activate 'flymake-goto-prev-error 'flymake-goto-prev-error-display-message)
 (ad-activate 'flymake-goto-next-error 'flymake-goto-next-error-display-message)
+
+;;* C-c e => ツールチップにエラー内容を表示
+(defun next-flymake-error ()
+  (interactive)
+  (flymake-goto-next-error)
+  (let ((err (get-char-property (point) 'help-echo)))
+    (when err
+      (popup-tip err))))
+(define-key mode-specific-map [(e)] 'next-flymake-error)

@@ -214,9 +214,15 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;* sdic-inline: カーソル位置にある単語を自動で翻訳しミニバッファに表示
 ;; http://d.hatena.ne.jp/khiker/20100303/sdic_inline
-;; C-c C-p => カーソル下の単語の意味をツールチップを使って表示
+;;* C-c C-p => カーソル下の単語の意味をツールチップを使って表示
 (require 'sdic-inline)
 (sdic-inline-mode t)   ; sdic-inline モードの起動
 ;;** 辞書ファイルの設定
 (setq sdic-inline-eiwa-dictionary "/usr/share/dict/gene.sdic"
       sdic-inline-waei-dictionary "/usr/share/dict/jedict.sdic")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;* thing-opt: thingを活用してリージョン選択を効率よく行う
+;; http://dev.ariel-networks.com/articles/emacs/part5/
+(require 'thing-opt)
+(define-thing-commands)
