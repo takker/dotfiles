@@ -16,32 +16,8 @@
 the directory containing file becomes the initial working directory
 and source-file directory for your debugger." t)
 
-;;* ruby-mode-hook
-(add-hook-fn 'ruby-mode-hook
-             (inf-ruby-keys)
-             ;;** キーバインドの追加
-             ;; -------------------------
-             ;;** C-m         newline-and-indent
-             ;;** C-j         行末に移動+C-m
-             ;;** C-c C-d     デバッガの起動
-             ;;** C-c C-c     Compile
-             (define-key ruby-mode-map [(C m)] 'ruby-reindent-then-newline-and-indent)
-             (define-key ruby-mode-map (kbd "C-j") (kbd "C-e C-m"))
-             (define-key ruby-mode-map [(C c) (C c)] 'compile)
-             (define-key ruby-mode-map [(C c) (C d)] 'rubydb)
-             (define-key ruby-mode-map [(C c) (C a)] 'ruby-beginning-of-defun)
-             ;; (define-key ruby-mode-map [(C c) (C b)] 'ruby-backward-sexp)
-             ;; (define-key ruby-mode-map [(C c) (C d)] 'ruby-insert-end)
-             ;; (define-key ruby-mode-map [(C c) (C e)] 'ruby-end-of-defun)
-             (define-key ruby-mode-map [(C c) (C f)] 'ruby-forward-sexp)
-             (define-key ruby-mode-map [(C c) (C n)] 'ruby-end-of-block)
-             (define-key ruby-mode-map [(C c) (C p)] 'ruby-beginning-of-block)
-             ;; (define-key ruby-mode-map [(C c) (C q)] 'ruby-indent-exp)
-             )
-
 ;;* ruby-electric.el --- electric editing commands for ruby files
 (require 'ruby-electric)
-(add-hook-fn 'ruby-mode-hook (ruby-electric-mode t))
 
 ;;* ruby-block.el
 (require 'ruby-block)
@@ -51,10 +27,6 @@ and source-file directory for your debugger." t)
 ;; 'minibuffer:ミニバッファ
 ;; 'overlay: オーバレイ
 (setq ruby-block-highlight-toggle t)    ; ミニバッファ+オーバレイ
-
-;;* インデントは空白2文字
-(setq ruby-indent-level 2)
-(setq ruby-indent-tabs-mode nil)
 
 ;;* alignの設定
 (require 'align)
@@ -68,3 +40,55 @@ and source-file directory for your debugger." t)
                (regexp . "\\(\\s-*\\)=>\\s-*[^# \t\n]")
                (repeat . t)
                (modes  . '(ruby-mode))))
+
+;;* ruby用flymake
+;; http://d.hatena.ne.jp/khiker/20070630/emacs_ruby_flymake
+(require 'flymake)
+;;** フェイスの設定
+(set-face-background 'flymake-errline "red4")
+(set-face-background 'flymake-warnline "dark slate blue")
+;; Invoke ruby with '-c' to get syntax checking
+(defun flymake-ruby-init ()
+  (let* ((temp-file   (flymake-init-create-temp-buffer-copy
+                       'flymake-create-temp-inplace))
+         (local-file  (file-relative-name
+                       temp-file
+                       (file-name-directory buffer-file-name))))
+    (list "ruby" (list "-c" local-file))))
+(push '(".+\\.rb$" flymake-ruby-init) flymake-allowed-file-name-masks)
+(push '("Rakefile$" flymake-ruby-init) flymake-allowed-file-name-masks)
+(push '("^\\(.*\\):\\([0-9]+\\): \\(.*\\)$" 1 2 nil 3) flymake-err-line-patterns)
+
+;;* ruby-mode-hook
+(defun ruby-mode-hooks ()
+  (inf-ruby-keys)
+  (ruby-electric-mode t)
+
+  ;;** インデントは空白2文字
+  (setq ruby-indent-level 2
+        ruby-indent-tabs-mode nil)
+
+  ;;** Don't want flymake mode for ruby regions in rhtml files
+  (if (not (null buffer-file-name)) (flymake-mode))
+
+  ;;** キーバインドの追加
+  ;; -------------------------
+  ;;** C-m         newline-and-indent
+  ;;** C-j         行末に移動+C-m
+  ;;** C-c C-d     デバッガの起動
+  ;;** C-c C-c     Compile
+  (local-set-key [(C m)] 'ruby-reindent-then-newline-and-indent)
+  (local-set-key (kbd "C-j") (kbd "C-e C-m"))
+  (local-set-key [(C c) (C c)] 'compile)
+  (local-set-key [(C c) (C d)] 'rubydb)
+  (local-set-key [(C c) (C a)] 'ruby-beginning-of-defun)
+  ;; (local-set-key [(C c) (C b)] 'ruby-backward-sexp)
+  ;; (local-set-key [(C c) (C d)] 'ruby-insert-end)
+  ;; (local-set-key [(C c) (C e)] 'ruby-end-of-defun)
+  (local-set-key [(C c) (C f)] 'ruby-forward-sexp)
+  (local-set-key [(C c) (C n)] 'ruby-end-of-block)
+  (local-set-key [(C c) (C p)] 'ruby-beginning-of-block)
+  ;; (local-set-key [(C c) (C q)] 'ruby-indent-exp)
+  (local-unset-key "{")                 ; for smartchr
+  )
+(add-hook 'ruby-mode-hook 'ruby-mode-hooks)
