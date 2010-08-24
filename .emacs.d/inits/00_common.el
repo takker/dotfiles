@@ -149,4 +149,9 @@
 (add-hook 'find-file-hooks 'auto-insert)
 (add-hook 'find-file-not-found-hooks 'auto-insert)
 
+;;* cua-modeを使って矩形選択や挿入などができるようにする
+(cua-mode t)
+;;** C-c, C-vの乗っ取りを阻止
+(setq cua-enable-cua-keys nil)
 ;;; end-of-file
+

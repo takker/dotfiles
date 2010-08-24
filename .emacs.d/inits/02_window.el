@@ -4,10 +4,11 @@
          (string-match "^23\." emacs-version))
     (progn
       ;;** フォント設定
-      (set-default-font "Monaco-9")
+      (set-default-font "Inconsolata-11")
+      (set-face-font 'variable-pitch "Inconsolata-11")
       (set-fontset-font (frame-parameter nil 'font)
                         'japanese-jisx0208
-                        '("M+1P+IPAG" . "unicode-bmp"))
+                        '("Takaoゴシック" . "unicode-bmp"))
       ;;** フレームサイズ
       (setq default-frame-alist
             (append

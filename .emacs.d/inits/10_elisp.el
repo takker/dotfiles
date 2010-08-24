@@ -34,6 +34,10 @@
 (global-set-key [(C x) (v) (l)] 'magit-log)
 (global-set-key [(C x) (v) (b)] 'git-branch-next-action)
 
+;;* git-status: Gitで管理しているファイルの状態をモードラインに表示
+;; http://d.hatena.ne.jp/kitokitoki/20100824/p1
+(require 'git-status)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;* key-chord: 2つのキーの同時押しでコマンド実行
 (require 'key-chord)
