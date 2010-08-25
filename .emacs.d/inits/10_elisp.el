@@ -226,3 +226,10 @@
 ;; http://dev.ariel-networks.com/articles/emacs/part5/
 (require 'thing-opt)
 (define-thing-commands)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;* rsense: Rubyのための開発援助ツール
+;; http://cx4a.org/software/rsense/index.ja.html
+(setq rsense-home "/home/taka/usr/opt/rsense-0.3")
+(add-to-list 'load-path (concat rsense-home "/etc"))
+(require 'rsense)

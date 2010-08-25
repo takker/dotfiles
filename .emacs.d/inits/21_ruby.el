@@ -71,6 +71,16 @@ and source-file directory for your debugger." t)
   ;;** Don't want flymake mode for ruby regions in rhtml files
   (if (not (null buffer-file-name)) (flymake-mode))
 
+  ;;** RSenseの設定
+  ;; (find-file "/home/taka/usr/opt/rsense-0.3/doc/manual.ja.txt")
+  ;;*** C-c C-/ => メソッド名などの補完
+  (local-set-key [(C c) (C /)] 'ac-complete-rsense)
+  (local-set-key [(C c) (C t)] 'rsense-type-help)
+  (local-set-key [(C c) (C j)] 'rsense-jump-to-definition)
+  (local-set-key [(C c) (C w)] 'rsense-where-is)
+  ;;*** '.'や'::'の入力後に自動的に補完
+  ;; (add-to-list 'ac-sources 'ac-source-rsense-method)
+  ;; (add-to-list 'ac-sources 'ac-source-rsense-constant)
   ;;** キーバインドの追加
   ;; -------------------------
   ;;** C-m         newline-and-indent
