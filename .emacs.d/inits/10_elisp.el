@@ -47,10 +47,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;* auto-complete: 補完候補を自動的に表示
 ;; http://cx4a.org/software/auto-complete/manual.ja.html
-(require 'auto-complete)
-(global-auto-complete-mode t)
-(define-key ac-complete-mode-map [(C n)] 'ac-next)     ; C-nで次の項目を選択
-(define-key ac-complete-mode-map [(C-p)] 'ac-previous) ; C-pで前の項目を選択
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/elisp//ac-dict")
+(ac-config-default)
+;;** C-n, C-pで項目の選択を行うようにする
+(setq ac-use-menu-map t)
 (setq ac-dwim t)
 (setq ac-auto-start 3)                  ; 3文字以上入力されたら補完開始
 
