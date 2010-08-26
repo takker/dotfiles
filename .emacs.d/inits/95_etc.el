@@ -32,6 +32,3 @@
 ;; http://tech.kayac.com/archive/emacs-tips-smartchr.html
 (require 'smartchr)
 (global-set-key (kbd "=") (smartchr '(" = " " == " "=")))
-(global-set-key (kbd ">") (smartchr '(">" " => " " => '`!!''" " => \"`!!'\""))) ; hash
-(global-set-key (kbd "~") (smartchr '("~" " =~ /`!!'/" " !~ /`!!'/"))) ; regexp
-(global-set-key (kbd "{") (smartchr '(" { `!!' }" " { |`!!'|  }" " { "))) ; block

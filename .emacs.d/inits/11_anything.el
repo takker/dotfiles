@@ -23,10 +23,13 @@
 (add-hook-fn 'dired-mode-hook ;dired
              (local-set-key (kbd "O") 'anything-c-moccur-dired-do-moccur-by-moccur))
 
-;;* descbinds-anything.el: キーバインドをanythingで表示
+;;* descbinds-anything: キーバインドをanythingで表示
 (require 'descbinds-anything)
 (descbinds-anything-install)
 
+;;* anything-rurema: ruremaをanythingで調べる
+(require 'anything-rurima)
+(setq anything-rurima-index-file "~/usr/doc/rurema/rubydoc/rurema.e")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; anything関連の設定
 ;;* ホームポジションのアルファベットで候補を選択できるようにする
@@ -61,3 +64,5 @@
 (define-key my-anything-map (kbd "a") 'anything-apropos)
 ;;** C-y => anything-show-kill-ring
 (define-key my-anything-map (kbd "C-y") 'anything-show-kill-ring)
+;;** r   => anything-rurima
+(define-key my-anything-map (kbd "r") 'anything-rurima)

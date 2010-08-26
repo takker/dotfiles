@@ -28,6 +28,42 @@ and source-file directory for your debugger." t)
 ;; 'overlay: オーバレイ
 (setq ruby-block-highlight-toggle t)    ; ミニバッファ+オーバレイ
 
+;;* rails
+(defun try-complete-abbrev (old)
+  (if (expand-abbrev) t nil))
+(setq hippie-expand-try-functions-list
+      '(try-complete-abbrev
+        try-complete-file-name
+        try-expand-dabbrev))
+(setq rails-use-mongrel t)
+(require 'rails)
+;;* C-c C-. => 対応するファイルへの切り替え
+;;* C-c C-, => 行き先を選べるファイル切り替え
+(define-key rails-minor-mode-map [(C c) (C ,)] 'rails-lib:run-primary-switch)
+(define-key rails-minor-mode-map [(C c) (C .)] 'rails-lib:run-secondary-switch)
+
+;;* ECB
+(load-file "/home/taka/.emacs.d/elisp/cedet-1.0pre7/common/cedet.el")
+(setq semantic-load-turn-useful-things-on t)
+(require 'ecb)
+(setq ecb-tip-of-the-day nil)
+(setq ecb-windows-width 0.25)
+(defun ecb-toggle ()
+  (interactive)
+  (if ecb-minor-mode
+      (ecb-deactivate)
+    (ecb-activate)))
+(global-set-key [f2] 'ecb-toggle)
+
+;;* rcodetools
+(require 'rcodetools)
+(setq rct-find-tag-if-available nil)
+
+(require 'anything-rcodetools)
+(setq rct-get-all-methods-command "PAGER=cat fri -l")
+;; See docs
+(define-key anything-map [(control ?;)] 'anything-execute-persistent-action)
+
 ;;* alignの設定
 (require 'align)
 (add-to-list 'align-rules-list
@@ -59,6 +95,12 @@ and source-file directory for your debugger." t)
 (push '("Rakefile$" flymake-ruby-init) flymake-allowed-file-name-masks)
 (push '("^\\(.*\\):\\([0-9]+\\): \\(.*\\)$" 1 2 nil 3) flymake-err-line-patterns)
 
+;;* rsense: Rubyのための開発援助ツール
+;; http://cx4a.org/software/rsense/index.ja.html
+(setq rsense-home "/home/taka/usr/opt/rsense-0.3")
+(add-to-list 'load-path (concat rsense-home "/etc"))
+(require 'rsense)
+
 ;;* ruby-mode-hook
 (defun ruby-mode-hooks ()
   (inf-ruby-keys)
@@ -73,7 +115,6 @@ and source-file directory for your debugger." t)
 
   ;;** RSenseの設定
   ;; (find-file "/home/taka/usr/opt/rsense-0.3/doc/manual.ja.txt")
-  ;;*** C-c C-/ => メソッド名などの補完
   (local-set-key [(C c) (C /)] 'ac-complete-rsense)
   (local-set-key [(C c) (C t)] 'rsense-type-help)
   (local-set-key [(C c) (C j)] 'rsense-jump-to-definition)
@@ -81,6 +122,7 @@ and source-file directory for your debugger." t)
   ;;*** '.'や'::'の入力後に自動的に補完
   ;; (add-to-list 'ac-sources 'ac-source-rsense-method)
   ;; (add-to-list 'ac-sources 'ac-source-rsense-constant)
+
   ;;** キーバインドの追加
   ;; -------------------------
   ;;** C-m         newline-and-indent
@@ -89,16 +131,52 @@ and source-file directory for your debugger." t)
   ;;** C-c C-c     Compile
   (local-set-key [(C m)] 'ruby-reindent-then-newline-and-indent)
   (local-set-key (kbd "C-j") (kbd "C-e C-m"))
-  (local-set-key [(C c) (C c)] 'compile)
+  ;; (local-set-key [(C c) (C c)] 'compile)
   (local-set-key [(C c) (C d)] 'rubydb)
   (local-set-key [(C c) (C a)] 'ruby-beginning-of-defun)
-  ;; (local-set-key [(C c) (C b)] 'ruby-backward-sexp)
-  ;; (local-set-key [(C c) (C d)] 'ruby-insert-end)
-  ;; (local-set-key [(C c) (C e)] 'ruby-end-of-defun)
+  (local-set-key [(C c) (C e)] 'ruby-end-of-defun)
+  (local-set-key [(C c) (e)] 'ruby-insert-end)
   (local-set-key [(C c) (C f)] 'ruby-forward-sexp)
+  (local-set-key [(C c) (C b)] 'ruby-backward-sexp)
   (local-set-key [(C c) (C n)] 'ruby-end-of-block)
   (local-set-key [(C c) (C p)] 'ruby-beginning-of-block)
-  ;; (local-set-key [(C c) (C q)] 'ruby-indent-exp)
-  (local-unset-key "{")                 ; for smartchr
+
+  ;;** smartchr
+  (setq smartchr-hash
+        '(
+          ">"
+          " => "
+          " => '`!!''"
+          " => \"`!!'\""
+          )
+        smartchr-regexp
+        '(
+          "~"
+          " =~ /`!!'/"
+          " !~ /`!!'/"
+          )
+        smartchr-block
+        '(
+          " { `!!' }"
+          " { |`!!'|  }"
+          " { "
+          )
+        smartchr-comment
+        '(
+          "# "
+          "#{`!!'}"
+          "# => "
+          ))
+  (local-set-key (kbd ">") (smartchr smartchr-hash))
+  (local-set-key (kbd "~") (smartchr smartchr-regexp))
+  (local-unset-key (kbd "{"))           ; ruby-electric-curlies
+  (local-set-key (kbd "{") (smartchr smartchr-block))
+  (local-set-key (kbd "#") (smartchr smartchr-comment))
+
+  ;; ;;** rcodetools用キーバインド
+  ;; (local-set-key [(M C i)] 'rct-complete-symbol)
+  (local-set-key [(C c) (C :)] 'ruby-toggle-buffer)
+  (local-set-key [(C c) (C u)] 'xmp)
+  (local-set-key [(C c) (C h)] 'rct-ri)
   )
 (add-hook 'ruby-mode-hook 'ruby-mode-hooks)
