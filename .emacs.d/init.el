@@ -1,5 +1,5 @@
 ;;; -*- mode: emacs-lisp; coding: utf-8; indent-tabs-mode: nil -*-
-;; encodingの設定
+;;* encodingの設定
 (set-language-environment "Japanese")
 (prefer-coding-system 'utf-8-unix)
 (setq default-buffer-file-coding-system 'utf-8)
@@ -8,17 +8,63 @@
 (set-keyboard-coding-system 'utf-8)
 (set-clipboard-coding-system 'utf-8)
 
-;; load-path
-(add-to-list 'load-path "~/.emacs.d/elisp")
+;;* load-path
 (add-to-list 'load-path "~/.emacs.d/auto-install")
-;; init-loader
-; http://coderepos.org/share/browser/lang/elisp/init-loader/init-loader.el
-; デフォルトで"~/.emacs.d/inits"以下のファイルをロードする
-(require 'init-loader)
-(init-loader-load)
+(add-to-list 'load-path "~/.emacs.d/elisp")
 
-;; auto-install
-; http://www.emacswiki.org/emacs/auto-install.el
+;;* exec-path
+;; FIXME: rvmでインストールした実行ファイルが見つからないエラーが出るので
+;; ここで実行パスに追加
+;; シェルの環境変数をここで設定できれば一番良い
+(setq exec-path (cons "~/.rvm/gems/ruby-1.8.7-p299/bin" exec-path))
+(setq exec-path (cons "~/.rvm/rubies/ruby-1.8.7-p299/bin" exec-path))
+(setenv "PATH"
+        (concat '"~/.rvm/gems/ruby-1.8.7-p299/bin:"
+                "~.rvm/rubies/ruby-1.8.7-p299/bin:" (getenv "PATH")))
+
+;;* auto-install
+;; http://www.emacswiki.org/emacs/auto-install.el
+;; FIXME: この部分を後ろに置くとauto-install時にエラー
 (require 'auto-install)
 (setq auto-install-directory "~/.emacs.d/auto-install/")
 (auto-install-update-emacswiki-package-name t)
+
+;;** ~/.emacs.d/elisp 以下のサブディレクトリを再帰的にロードパスに追加
+(defun my-add-load-path-subdir (dirlist)
+  (with-temp-buffer
+    (dolist (dir dirlist)
+      (cd dir)
+      (normal-top-level-add-subdirs-to-load-path))))
+
+(my-add-load-path-subdir
+ '(
+   "~/.emacs.d/elisp"
+   ))
+
+;;* init-loader
+;; http://coderepos.org/share/browser/lang/elisp/init-loader/init-loader.el
+;;** デフォルトで"~/.emacs.d/inits"以下のファイルをロードする
+(require 'init-loader)
+(init-loader-load)
+
+(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(ecb-options-version "2.40"))
+(custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(anything-file-name ((t (:foreground "white"))))
+ '(anything-header ((t (:background "green" :foreground "black"))))
+ '(anything-match ((t (:background "skyblue" :foreground "black"))))
+ '(cursor ((t (:background "snow" :foreground "black"))))
+ '(font-lock-comment-delimiter-face ((t (:foreground "goldenrod"))))
+ '(font-lock-comment-face ((t (:foreground "goldenrod"))))
+ '(minibuffer-prompt ((t (:foreground "Green"))))
+ '(mode-line ((t (:background "darkgreen" :foreground "gold" :box (:line-width -1 :style released-button)))))
+ '(mode-line-inactive ((t (:background "dimgray" :foreground "white"))))
+ '(region ((t (:background "skyblue" :foreground "black")))))

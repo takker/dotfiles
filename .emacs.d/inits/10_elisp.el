@@ -229,8 +229,12 @@
 (define-thing-commands)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;* rsense: Rubyのための開発援助ツール
-;; http://cx4a.org/software/rsense/index.ja.html
-(setq rsense-home "/home/taka/usr/opt/rsense-0.3")
-(add-to-list 'load-path (concat rsense-home "/etc"))
-(require 'rsense)
+;;* emacs-keybind: emacsで設定されているキーバインドを視覚的に表示
+;; http://d.hatena.ne.jp/tuto0621/20090315/1237133124
+(require 'emacs-keybind)
+;;** 解析に使用するrubyスクリプトのパス
+(setq emacs-keybind-program-file "~/.emacs.d/elisp/emacs-keybind/emacs_keybind.rb")
+;;** キーボード種類(ascii or japanese)
+(setq emacs-keybind-keyboard-kind "japanese")
+;;** emacs-keybind.el が自動で生成するファイルの置き場所
+(setq emacs-keybind-work-dir "~/Documents/emacs-keybind")
