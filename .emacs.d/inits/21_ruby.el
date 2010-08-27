@@ -157,13 +157,13 @@ and source-file directory for your debugger." t)
           )
         smartchr-block
         '(
-          " { `!!' }"
-          " { |`!!'|  }"
-          " { "
+          "{ `!!' }"
+          "{ |`!!'|  }"
+          "{ "
           )
         smartchr-comment
         '(
-          "# "
+          "#"
           "#{`!!'}"
           "# => "
           ))

@@ -10,6 +10,8 @@
 ;;* 同時押しで実行するコマンドの設定(key-chord.el)
 (key-chord-define-global "jk" 'view-mode)
 (key-chord-define-global "df" 'descbinds-anything)
+(key-chord-define-global "fs" 'move-to-char-forward)
+(key-chord-define-global "FS" 'move-to-char-backward)
 
 ;;* テンプレートの挿入
 (setq auto-insert-alist
@@ -31,4 +33,4 @@
 ;;* smartchrの設定
 ;; http://tech.kayac.com/archive/emacs-tips-smartchr.html
 (require 'smartchr)
-(global-set-key (kbd "=") (smartchr '(" = " " == " "=")))
+(global-set-key (kbd "=") (smartchr '("= " "== " "=== ")))
