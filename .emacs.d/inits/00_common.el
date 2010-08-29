@@ -8,8 +8,16 @@
 
 ;;* Start server
 (server-start)
-; emacsclient で Buffer `hogehoge' still has clients; kill it? (yes or no) とかいわれるのがうざいのをなおす
-; http://aki.issp.u-tokyo.ac.jp/itoh/hiChangeLog/html/2007-04.html#2007-04-09-1
+(defun iconify-emacs-when-server-is-done ()
+  (unless server-clients (iconify-frame)))
+;;** 編集が終了したらEmacsをアイコン化する
+(add-hook 'server-done-hook 'iconify-emacs-when-server-is-done)
+;;** C-x C-c => server-edit
+(global-set-key [(C x) (C c)] 'server-edit)
+;;** M-x exitでEmacsを終了できるようにする
+(defalias 'exit 'save-buffers-kill-emacs)
+;;** emacsclient で Buffer `hogehoge' still has clients; kill it? (yes or no) とかいわれるのがうざいのをなおす
+;; http://aki.issp.u-tokyo.ac.jp/itoh/hiChangeLog/html/2007-04.html#2007-04-09-1
 (remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function)
 
 ;;; マクロ定義

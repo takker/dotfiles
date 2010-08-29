@@ -7,3 +7,5 @@ alias install='sudo apt-get install -y'
 
 alias diff='colordiff -u'
 
+alias em='emacsclient'
+

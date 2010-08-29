@@ -14,6 +14,9 @@ if [ -d "$HOME/bin" ] ; then
 fi
 
 # 環境変数の設定
+# エディタ
+export EDITOR=emacsclient
+export VISUAL=emacsclient
 # fcコマンドで使用するエディタ
 export FCEDIT=vi
 
