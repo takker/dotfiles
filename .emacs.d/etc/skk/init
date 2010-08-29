@@ -1,0 +1,44 @@
+;;; -*- mode: emacs-lisp; coding: utf-8; indent-tabs-mode: nil; -*-
+;;; ddskkの設定
+;;* 入力する文字と出力される文字との対応表
+;; (setq skk-rom-kana-rule-list
+;;       (append skk-rom-kana-rule-list
+;;               '(
+;;                 ("nn" "n" ("ン" . "ん"))
+;;                 )))
+
+;;* 対応する括弧などを自動的に挿入する
+(setq skk-auto-insert-paren t)
+
+;;* sticky-shift
+(setq skk-sticky-key ";")
+
+;;* 動的補完を有効にする
+(setq skk-dcomp-activate t)
+
+;;* 確定キーを押したときに改行しない
+;; (setq skk-egg-like-newline t)
+
+;;* 変換候補が1つしかない場合、自動的に確定する
+(setq skk-kakutei-when-unique-candidate t)
+
+;;* 送り仮名の自動処理を行なう
+(setq skk-auto-okuri-process t)
+
+;;* インクリメンタルサーチの設定
+(add-hook 'isearch-mode-hook
+          #'(lambda ()
+              (when (and (boundp 'skk-mode)
+                         skk-mode
+                         skk-isearch-mode-enable)
+                (skk-isearch-mode-setup))))
+(add-hook 'isearch-mode-end-hook
+          #'(lambda ()
+              (when (and (featurep 'skk-isearch)
+                         skk-isearch-mode-enable)
+                (skk-isearch-mode-cleanup))))
+
+;;* サ変動詞変換を行う
+(setq skk-search-prog-list
+      (skk-nunion skk-search-prog-list
+                  '((skk-search-sagyo-henkaku))))

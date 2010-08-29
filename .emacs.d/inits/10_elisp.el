@@ -4,16 +4,32 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;* ibus-mode
 ;; http://d.hatena.ne.jp/supermassiveblackhole/20100609/1276059762
-(require 'ibus)
-;;** Turn on ibus-mode automatically after loading .emacs
-(add-hook 'after-init-hook 'ibus-mode-on)
-;; ;;** Use C-SPC for Set Mark command
-;; (ibus-define-common-key ?\C-\s nil)
-;;** Use C-/ for Undo command
-(ibus-define-common-key ?\C-/ nil)
-;;** Change cursor color depending on IBus status
-(setq ibus-cursor-color
-  '("limegreen" "white" "blue"))
+;; (require 'ibus)
+;; ;;** Turn on ibus-mode automatically after loading .emacs
+;; (add-hook 'after-init-hook 'ibus-mode-on)
+;; ;; ;;** Use C-SPC for Set Mark command
+;; ;; (ibus-define-common-key ?\C-\s nil)
+;; ;;** Use C-/ for Undo command
+;; (ibus-define-common-key ?\C-/ nil)
+;; ;;** Change cursor color depending on IBus status
+;; (setq ibus-cursor-color
+;;   '("limegreen" "white" "blue"))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;* ddskk
+;; http://openlab.ring.gr.jp/skk/skk-manual/skk-manual-ja.html
+(require 'skk-autoloads)
+;;** skkの設定を保存するディレクトリ
+(setq skk-user-directory "~/.ddskk")
+(setq skk-init-file "~/.emacs.d/etc/skk/init")
+;;** skkの設定ファイルを起動時にバイトコンパイルする
+;; (setq skk-byte-compile-init-file t)
+;;** skk起動時に作動するフック
+(defun skk-load-hooks ()
+  (require 'context-skk))               ; 文脈に応じた自動モード切り替え
+(add-hook 'skk-load-hook 'skk-load-hooks)
+(global-set-key [(C x) (C j)] 'skk-mode)
+(global-set-key [(C x) (j)] 'skk-auto-fill-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;* sequential-command: 同じコマンドを連続実行
