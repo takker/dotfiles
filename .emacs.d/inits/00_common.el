@@ -119,15 +119,25 @@
 ;;* アクティブでないバッファではカーソルを出さない
 (setq cursor-in-non-selected-windows nil)
 
-;;* iswitchb & uniquify
+;;* iswitchb
 (iswitchb-mode 1)
+;;** バッファ読み取り関数をiswitchbにする
+(setq read-buffer-function 'iswitchb-read-buffer)
+;;** 新しいバッファを作るときにいちいち聞いてこない
+(setq iswitchb-prompt-newbuffer nil)
+
+;;* uniquify
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 (setq uniquify-ignore-buffers-re "*[^*]+*")
 
 ;;* recenf-mode
 ;(recentf-mode t)
-; http://d.hatena.ne.jp/rubikitch/20091224
+;;** 最近のファイルを1000個保存する
+(setq recentf-max-saved-items 1000)
+;;** 最近使ったファイルに加えないファイルを正規表現で指定する
+(setq recentf-exclude '("/TAGS$" "/var/tmp/"))
+;; http://d.hatena.ne.jp/rubikitch/20091224
 (require 'recentf-ext)
 
 ;;* Narrowing
@@ -161,5 +171,34 @@
 (cua-mode t)
 ;;** C-c, C-vの乗っ取りを阻止
 (setq cua-enable-cua-keys nil)
+
+;;* bookmarkの設定
+;;** ブックマークを変更したら即保存する
+(setq bookmark-save-flag t)
+;;** 最近使ったブックマークを上に持っていく
+(progn
+  (setq bookmark-sort-flag nil)
+  (defun bookmark-arrange-latest-top ()
+    (let ((latest (bookmark-get-bookmark bookmark)))
+      (setq bookmark-alist (cons latest (delq latest bookmark-alist))))
+    (bookmark-save))
+  (add-hook 'bookmark-after-jump-hook 'bookmark-arrange-latest-top))
+
+;;* migemoの設定
+(setq migemo-command "cmigemo")
+(setq migemo-options '("-q" "--emacs" "-i" "\a"))
+(setq migemo-dictionary "/usr/local/share/migemo/utf-8/migemo-dict")
+(setq migemo-user-dictionary nil)
+(setq migemo-regex-dictionary nil)
+;;** キャッシュを使用する
+(setq migemo-use-pattern-alist t)
+(setq migemo-use-frequent-pattern-alist t)
+(setq migemo-pattern-alist-length 1024)
+;;* 辞書の文字コードはUTF-8
+(setq migemo-coding-system 'utf-8-unix)
+(load-library "migemo")
+;; initialization
+(migemo-init)
+
 ;;; end-of-file
 
