@@ -72,40 +72,7 @@ xterm*|rxvt*)
     ;;
 esac
 
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
-
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-alias sl='ls -AlF'
-
-# Perform ls just after cd
-function c() {
-  builtin cd $1
-  ls --color=auto
-}
-
-# Perform cd just after mkdir
-function mkcd() {
-  [ -n "$1" ] && mkdir -p "$@" && cd "$1";
-}
-
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
+# エイリアス(および関数)の定義は ~/.bash_aliases に記述する
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
