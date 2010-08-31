@@ -5,6 +5,7 @@
       (append '(
                 ("\\.rb$" . ruby-mode)
                 ("[Rr]akefile$" . ruby-mode)
+                ("\\.rjs$" . ruby-mode)
                 )
               auto-mode-alist))
 (setq interpreter-mode-alist (append '(("ruby" . ruby-mode)) interpreter-mode-alist))
@@ -27,20 +28,6 @@ and source-file directory for your debugger." t)
 ;; 'minibuffer:ミニバッファ
 ;; 'overlay: オーバレイ
 (setq ruby-block-highlight-toggle t)    ; ミニバッファ+オーバレイ
-
-;;* rails
-(defun try-complete-abbrev (old)
-  (if (expand-abbrev) t nil))
-(setq hippie-expand-try-functions-list
-      '(try-complete-abbrev
-        try-complete-file-name
-        try-expand-dabbrev))
-(setq rails-use-mongrel t)
-(require 'rails)
-;;* C-c C-. => 対応するファイルへの切り替え
-;;* C-c C-, => 行き先を選べるファイル切り替え
-(define-key rails-minor-mode-map [(C c) (C ,)] 'rails-lib:run-primary-switch)
-(define-key rails-minor-mode-map [(C c) (C .)] 'rails-lib:run-secondary-switch)
 
 ;;* ECB
 (load-file "/home/taka/.emacs.d/elisp/cedet-1.0pre7/common/cedet.el")
@@ -124,11 +111,6 @@ and source-file directory for your debugger." t)
   ;; (add-to-list 'ac-sources 'ac-source-rsense-constant)
 
   ;;** キーバインドの追加
-  ;; -------------------------
-  ;;** C-m         newline-and-indent
-  ;;** C-j         行末に移動+C-m
-  ;;** C-c C-d     デバッガの起動
-  ;;** C-c C-c     Compile
   (local-set-key [(C m)] 'ruby-reindent-then-newline-and-indent)
   (local-set-key (kbd "C-j") (kbd "C-e C-m"))
   ;; (local-set-key [(C c) (C c)] 'compile)
@@ -140,20 +122,21 @@ and source-file directory for your debugger." t)
   (local-set-key [(C c) (C b)] 'ruby-backward-sexp)
   (local-set-key [(C c) (C n)] 'ruby-end-of-block)
   (local-set-key [(C c) (C p)] 'ruby-beginning-of-block)
+  (local-unset-key (kbd "TAB"))         ; yas/expand
 
   ;;** smartchr
   (setq smartchr-hash
         '(
           ">"
-          " => "
-          " => '`!!''"
-          " => \"`!!'\""
+          "=> "
+          "=> '`!!''"
+          "=> \"`!!'\""
           )
         smartchr-regexp
         '(
           "~"
-          " =~ /`!!'/"
-          " !~ /`!!'/"
+          "=~ /`!!'/"
+          "!~ /`!!'/"
           )
         smartchr-block
         '(
