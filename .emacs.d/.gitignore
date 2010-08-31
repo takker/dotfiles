@@ -3,3 +3,4 @@ auto-save-list/
 elisp/
 *.elc
 session*
+tramp
