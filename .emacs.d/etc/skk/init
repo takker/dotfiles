@@ -17,7 +17,7 @@
 (setq skk-dcomp-activate t)
 
 ;;* 確定キーを押したときに改行しない
-;; (setq skk-egg-like-newline t)
+(setq skk-egg-like-newline t)
 
 ;;* 変換候補が1つしかない場合、自動的に確定する
 (setq skk-kakutei-when-unique-candidate t)

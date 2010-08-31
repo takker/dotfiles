@@ -119,12 +119,12 @@
 ;;* アクティブでないバッファではカーソルを出さない
 (setq cursor-in-non-selected-windows nil)
 
-;;* iswitchb
-(iswitchb-mode 1)
-;;** バッファ読み取り関数をiswitchbにする
-(setq read-buffer-function 'iswitchb-read-buffer)
-;;** 新しいバッファを作るときにいちいち聞いてこない
-(setq iswitchb-prompt-newbuffer nil)
+;; ;;* iswitchb
+;; (iswitchb-mode 1)
+;; ;;** バッファ読み取り関数をiswitchbにする
+;; (setq read-buffer-function 'iswitchb-read-buffer)
+;; ;;** 新しいバッファを作るときにいちいち聞いてこない
+;; (setq iswitchb-prompt-newbuffer nil)
 
 ;;* uniquify
 (require 'uniquify)
@@ -143,8 +143,36 @@
 ;;* Narrowing
 (put 'narrow-to-region 'disabled nil)
 
-;;* Delete trailing whitespace before saving
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+;;* 保存時に現在行を除いて行末の空白を削除する
+;; http://madscientist.jp/~ikegami/diary/20071125.html#p02
+(defun delete-trailing-whitespace-except-for-the-current-line ()
+  "Delete all the trailing whitespace across the current buffer,
+except for the current line where the point is. All whitespace
+after the last non-whitespace character in a line is deleted. This
+respects narrowing, created by \\[narrow-to-region] and friends. A
+formfeed is not considered whitespace by this function."
+  (interactive "*")
+  (let ((opoint (point)) start l)
+    (save-match-data
+      (save-excursion
+        (save-restriction
+          (goto-char (point-min))
+          (widen)
+          (forward-line 0)
+          (setq start (point))
+          (goto-char opoint)
+          (forward-line 0)
+          (setq l (1+ (count-lines 1 (point))))
+          (goto-char (point-min))
+          (while (and (re-search-forward "\\s-$" nil t)
+                      (not (= (count-lines (point-min) (point)) l)))
+            (skip-syntax-backward "-" (save-excursion (forward-line 0) (point)))
+            ;; Don't delete formfeeds, even if they are considered whitespace.
+            (save-match-data
+              (if (looking-at ".*\f")
+                  (goto-char (match-end 0))))
+            (delete-region (point) (match-end 0))))))))
+(add-hook 'before-save-hook 'delete-trailing-whitespace-except-for-the-current-line)
 
 ;;* abbrev file (default ~/.abbrev_defs)
 (setq abbrev-file-name "~/.emacs.d/etc/.abbrev_defs")

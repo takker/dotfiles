@@ -32,6 +32,9 @@
 (setq anything-rurima-index-file "~/usr/doc/rurema/rubydoc/rurema.e")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; anything関連の設定
+;;* anything関連のログを保存する
+(setq anything-debug "/var/log/anything")
+
 ;;* ホームポジションのアルファベットで候補を選択できるようにする
 (setq anything-enable-shortcuts 'alphabet)
 

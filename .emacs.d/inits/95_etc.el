@@ -33,4 +33,6 @@
 ;;* smartchrの設定
 ;; http://tech.kayac.com/archive/emacs-tips-smartchr.html
 (require 'smartchr)
-(global-set-key (kbd "=") (smartchr '("= " "== " "=== ")))
+;; (global-set-key (kbd "=") (smartchr '("= " "== " "=== ")))
+(global-set-key (kbd "=") (smartchr '("= " "=\"`!!'\"")))
+(global-set-key (kbd ">") (smartchr '(">" "=> ")))
