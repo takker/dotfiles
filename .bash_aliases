@@ -7,9 +7,9 @@ alias dots='cd $HOME/projects/dotfiles'
 alias search='apt-cache search'
 alias install='sudo apt-get install -y'
 
-alias em='emacsclient'
-
 alias diff='colordiff -u'
+alias em='emacsclient'
+alias h='history 20'
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -52,8 +52,10 @@ function gst() {
 function gls() {
     if [ $# -eq 0 ]
     then
-        gst
+        git st -s | awk '{print $2}'
     else
-        git st -s | awk "(NR == $1){ printf \$2}"
+        for i in $@; do
+            git st -s | awk "(NR == $i){print \$2}"
+        done
     fi
 }
