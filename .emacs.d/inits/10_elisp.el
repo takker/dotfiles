@@ -1,5 +1,17 @@
 ;;; -*- mode: emacs-lisp; coding: utf-8; indent-tabs-mode: nil; -*-
 ;;; 10_elisp.el: 各種elispパッケージの設定
+;;* ECB
+(load-file "/home/taka/.emacs.d/elisp/cedet-1.0pre7/common/cedet.el")
+(setq semantic-load-turn-useful-things-on t)
+(require 'ecb)
+(setq ecb-tip-of-the-day nil)
+(setq ecb-windows-width 0.25)
+(defun ecb-toggle ()
+  (interactive)
+  (if ecb-minor-mode
+      (ecb-deactivate)
+    (ecb-activate)))
+(global-set-key [f2] 'ecb-toggle)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;* ibus-mode
@@ -39,7 +51,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;* magit: gitインタフェース
 (require 'magit)
-; http://d.hatena.ne.jp/rubikitch/20100716/git
+;; http://d.hatena.ne.jp/rubikitch/20100716/git
 (require 'git-dwim)
 ;;** キーバインドの設定
 ;;*** C-x v => magit-status
