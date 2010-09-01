@@ -253,3 +253,9 @@
 (setq emacs-keybind-keyboard-kind "japanese")
 ;;** emacs-keybind.el が自動で生成するファイルの置き場所
 (setq emacs-keybind-work-dir "~/Documents/emacs-keybind")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;* disk: バッファの状態に応じてsave,reload,openを切り替える
+;; http://www.bookshelf.jp/cgi-bin/goto.cgi?file=meadow&node=disk
+(global-set-key [(C x)(C s)] 'disk)
+(autoload 'disk "disk" "Save, revert, or find file." t)
