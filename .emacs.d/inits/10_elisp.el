@@ -1,18 +1,5 @@
 ;;; -*- mode: emacs-lisp; coding: utf-8; indent-tabs-mode: nil; -*-
 ;;; 10_elisp.el: 各種elispパッケージの設定
-;;* ECB
-(load-file "/home/taka/.emacs.d/elisp/cedet-1.0pre7/common/cedet.el")
-(setq semantic-load-turn-useful-things-on t)
-(require 'ecb)
-(setq ecb-tip-of-the-day nil)
-(setq ecb-windows-width 0.25)
-(defun ecb-toggle ()
-  (interactive)
-  (if ecb-minor-mode
-      (ecb-deactivate)
-    (ecb-activate)))
-(global-set-key [f2] 'ecb-toggle)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;* ibus-mode
 ;; http://d.hatena.ne.jp/supermassiveblackhole/20100609/1276059762
@@ -75,7 +62,7 @@
 ;;* auto-complete: 補完候補を自動的に表示
 ;; http://cx4a.org/software/auto-complete/manual.ja.html
 (require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/elisp//ac-dict")
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/elisp/ac-dict")
 (ac-config-default)
 ;;** C-n, C-pで項目の選択を行うようにする
 (setq ac-use-menu-map t)
