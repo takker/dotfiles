@@ -184,17 +184,6 @@ formfeed is not considered whitespace by this function."
 (setq save-abbrevs t)
 (define-key esc-map " " 'expand-abbrev) ; M-SPC で略称展開
 
-;;* ファイル作成時に自動挿入するテンプレート
-;;** 作成するファイルと挿入するテンプレートとの対応関係は 95_etc.el で
-;;** テンプレートの保存ディレクトリ
-(setq auto-insert-directory "~/.emacs.d/etc/templates/")
-(load "autoinsert" t)
-;;** テンプレート挿入時に問い合わせない
-;;** デフォルトは 'function
-(setq auto-insert-query nil)
-(add-hook 'find-file-hooks 'auto-insert)
-(add-hook 'find-file-not-found-hooks 'auto-insert)
-
 ;;* cua-modeを使って矩形選択や挿入などができるようにする
 (cua-mode t)
 ;;** C-c, C-vの乗っ取りを阻止
