@@ -13,22 +13,18 @@
 (key-chord-define-global "fs" 'move-to-char-forward)
 (key-chord-define-global "FS" 'move-to-char-backward)
 
-;;* テンプレートの挿入
-(setq auto-insert-alist
-      (append
-       '(
-         ("_test\\.c" . "template_test.c")
-         ("\\.c$" . "_.c")
-         ("\\.h$" . "_.h")
-         ("Main\\.java$" . "Main.java")
-         ("\\.pl$" . "_.pl")
-         ("\\.tex$" . "_.tex")
-         ("Makefile$" . "_.Makefile")
-         ("tc.+\\.rb$" . "tc__.rb")
-         ("\\.rb$" . "_.rb")
-         ("\\.xul$" . "_.xul")
-         )
-       auto-insert-alist))
+;;* hippie-expandの補完の優先順位
+(setq hippie-expand-try-functions-list
+      '(yas/hippie-try-expand
+        try-expand-dabbrev
+        try-expand-dabbrev-all-buffers
+        try-expand-dabbrev-from-kill
+        try-complete-file-name-partially
+        try-complete-file-name
+        try-expand-all-abbrevs
+        try-expand-list try-expand-line
+        try-complete-lisp-symbol-partially
+        try-complete-lisp-symbol))
 
 ;;* smartchrの設定
 ;; http://tech.kayac.com/archive/emacs-tips-smartchr.html

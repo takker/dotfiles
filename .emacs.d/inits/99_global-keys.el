@@ -7,8 +7,10 @@
 (global-set-key [(M /)] 'hippie-expand)   ;補完を強力に
 (global-set-key [(C >)] 'end-of-buffer)
 (global-set-key [(C <)] 'beginning-of-buffer)
+(global-set-key (kbd "M-[") 'backward-paragraph)
+(global-set-key (kbd "M-]") 'forward-paragraph)
 
-(global-set-key "\C-\\" 'ibus-toggle)   ; C-\ でmozcのトグル
+;; (global-set-key "\C-\\" 'ibus-toggle)   ; C-\ でmozcのトグル
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; ctl-x-map
