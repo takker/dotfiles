@@ -13,3 +13,4 @@
 	log1 = log --pretty=format:\"[%h] %ad : %s\" --date=short --graph
 	ls = ls-files
 	show-graph = log --graph --abbrev-commit --pretty=oneline
+	unstage = reset HEAD
