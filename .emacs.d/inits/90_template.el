@@ -1,16 +1,13 @@
 ;;; -*- mode: emacs-lisp; coding: utf-8; indent-tabs-mode: nil; -*-
 ;;; yasnippetやauto-insertなどのテンプレート関係の設定
+
 ;;; yasnippet
 ;;* yasunippet normal install
-(add-to-list 'load-path
-             "~/.emacs.d/plugins/yasnippet-0.6.1c")
 (require 'yasnippet)
 (yas/initialize)
-(yas/load-directory "~/.emacs.d/plugins/yasnippet-0.6.1c/snippets")
-(yas/load-directory "~/.emacs.d/plugins/yasnippets-rails/rails-snippets")
-
-;; (global-set-key (kbd "C-x y") 'yas/register-oneshot-snippet)
-;; (global-set-key (kbd "C-x C-y") 'yas/expand-oneshot-snippet)
+(yas/load-directory "~/.emacs.d/etc/snippets")
+(require 'yasnippet-config)
+(global-set-key (kbd "C-x C-y") 'yas/oneshot-snippet)
 
 ;;* auto-insert
 (auto-insert-mode)
