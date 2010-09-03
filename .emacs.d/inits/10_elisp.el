@@ -1,20 +1,6 @@
 ;;; -*- mode: emacs-lisp; coding: utf-8; indent-tabs-mode: nil; -*-
 ;;; 10_elisp.el: 各種elispパッケージの設定
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;* ibus-mode
-;; http://d.hatena.ne.jp/supermassiveblackhole/20100609/1276059762
-;; (require 'ibus)
-;; ;;** Turn on ibus-mode automatically after loading .emacs
-;; (add-hook 'after-init-hook 'ibus-mode-on)
-;; ;; ;;** Use C-SPC for Set Mark command
-;; ;; (ibus-define-common-key ?\C-\s nil)
-;; ;;** Use C-/ for Undo command
-;; (ibus-define-common-key ?\C-/ nil)
-;; ;;** Change cursor color depending on IBus status
-;; (setq ibus-cursor-color
-;;   '("limegreen" "white" "blue"))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;* ddskk
 ;; http://openlab.ring.gr.jp/skk/skk-manual/skk-manual-ja.html
 (require 'skk-autoloads)
@@ -99,10 +85,6 @@
   (around hc-expand-file-name-del activate)
   (if name
       ad-do-it))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;* toggle: 開いているファイルと関連するファイルとのトグル
-; (require 'toggle)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;* word-count: 単語数をカウント,M-+ でマイナーモードを ON
@@ -190,35 +172,9 @@
 (global-set-key [?\C-.] 'my-bury-buffer)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;* mcomplete: M-xの補完
-;; (require 'mcomplete)
-;; (require 'cl)
-;; (load "mcomplete-history")
-;; (turn-on-mcomplete-mode)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;* auto-save-buffers: 全バッファの自動保存
 (require 'auto-save-buffers)
 (run-with-idle-timer 2.0 t 'auto-save-buffers) ; 2秒ごとに自動保存
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;* grep-edit: grepの結果を編集
-(require 'grep)
-(require 'grep-edit)
-;;** http://d.hatena.ne.jp/rubikitch/20081025/1224869598
-;; (defadvice grep-edit-change-file (around inhibit-read-only activate)
-;;   ""
-;;   (let ((inhibit-read-only t))
-;;     ad-do-it))
-;; ;; (progn (ad-disable-advice 'grep-edit-change-file 'around 'inhibit-read-only) (ad-update 'grep-edit-change-file))
-
-;; (defun my-grep-edit-setup ()
-;;   (define-key grep-mode-map '[up] nil)
-;;   (define-key grep-mode-map "\C-c\C-c" 'grep-edit-finish-edit)
-;;   (message (substitute-command-keys "\\[grep-edit-finish-edit] to apply changes."))
-;;   (set (make-local-variable 'inhibit-read-only) t)
-;;   )
-;; (add-hook 'grep-setup-hook 'my-grep-edit-setup t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;* hiwin: 現在のバッファを目立たせる
@@ -258,3 +214,26 @@
 ;; http://www.bookshelf.jp/cgi-bin/goto.cgi?file=meadow&node=disk
 (global-set-key [(C x)(C s)] 'disk)
 (autoload 'disk "disk" "Save, revert, or find file." t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;* eldoc: 関数・変数のヘルプをエコーエリアに表示
+(require 'eldoc-extension)
+(require 'c-eldoc)
+(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+(add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
+(add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
+(add-hook 'c-mode-hook 'c-turn-on-eldoc-mode)
+(setq eldoc-idle-delay 0.2)
+(setq eldoc-minor-mode-string "")
+
+;;;;;;;;;;;;;;;;;;;;;;;
+;;* open-junk-file: 使い捨てのファイルを開く
+(require 'open-junk-file)
+;;** 使い捨てファイルのフォーマット
+(setq open-junk-file-format "~/junk/%Y-%m-%d-%H%M%S.")
+(global-set-key (kbd "C-x C-S-f") 'open-junk-file)
+
+;;;;;;;;;;;;;;;;;;;;;;;
+;;* summarye: バッファのサマリを表示する
+(require 'summarye)
+(global-set-key (kbd "<f12>") 'se/make-summary-buffer)
