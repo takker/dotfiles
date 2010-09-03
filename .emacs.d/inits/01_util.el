@@ -14,14 +14,14 @@
 (global-set-key [(C c)(d)] 'my-insert-date)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;* C-o => 他のウィンドウに移動(なければ分割)
+;;* C-x C-o => 他のウィンドウに移動(なければ分割)
 ;;** http://d.hatena.ne.jp/rubikitch/20100210
 (defun other-window-or-split ()
   (interactive)
   (when (one-window-p)
     (split-window-vertically))
   (other-window 1))
-(global-set-key [(C o)] 'other-window-or-split)
+(global-set-key (kbd "C-x C-o") 'other-window-or-split)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;* M-n => n行下にスクロール
@@ -55,7 +55,6 @@
 (defvar last-search-char " ")
 (defvar last-search-direction 'forward)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;* C-z => 指定した文字(前方)にジャンプ
 (defun move-to-char-forward (arg char)
   "Move forward to the provided character."
@@ -68,7 +67,6 @@
   (backward-char 1))
 (global-set-key (kbd "C-z") 'move-to-char-forward)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;* C-S-z => 指定した文字(後方)にジャンプ
 (defun move-to-char-backward (arg char)
   "Move backward to the provided character."
@@ -121,22 +119,21 @@
 (ad-activate 'kill-line)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;* M-o => 現在行の上に新しい行を追加
+;;* M-O => 現在行に新しい行を追加
 (defadvice open-line (before open-whole-line
                              (&optional arg))
   "Insert newline before the line and leave the point."
   (beginning-of-line 1))
 (ad-activate 'open-line)
-(global-set-key [(M o)] 'open-line)
+(global-set-key (kbd "M-O") 'open-line)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;* M-S-o => 現在行の次に新しい行を追加
+;;* M-o => 次の行に新しい行を追加
 (defun open-next-line (&optional arg)
   "Insert a newline into the next line and leave point before it."
   (interactive "p")
   (next-line 1)
   (open-line arg))
-(global-set-key [(M S o)] 'open-next-line)
+(global-set-key (kbd "M-o") 'open-next-line)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;* C-w => kill-region or backward-word
