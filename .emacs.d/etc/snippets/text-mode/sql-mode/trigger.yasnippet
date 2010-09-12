@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: CREATE TRIGER ...
+# key: trig
+# expand-env: ((yas/indent-line 'fixed))
+# --
+CREATE TRIGGER ${1:name} ${2:BEFORE/AFTER} ${3:INSERT/DELETE/UPDATE}
+ON ${4:table} FOR EACH ROW
+BEGIN
+    $0
+END

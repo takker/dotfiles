@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: $:.unshift "../lib"
+# key:lpath
+# --
+$:.unshift File.join(File.dirname(__FILE__), "..", "${1:lib}")
+$0
