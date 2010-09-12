@@ -1,0 +1,6 @@
+
+* inbox
+** k l 同時押しで org-remmeber
+
+   [[file:~/projects/dotfiles/.emacs.d/inits/95_etc.el::key%20chord%20define%20global%20kl%20org%20remember][file:~/projects/dotfiles/.emacs.d/inits/95_etc.el::key chord define global kl org remember]]
+   <2010-09-12 日>
