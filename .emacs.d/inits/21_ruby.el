@@ -75,6 +75,11 @@ and source-file directory for your debugger." t)
 (add-to-list 'load-path (concat rsense-home "/etc"))
 (require 'rsense)
 
+;;* rspec-mode: RSpec用のマイナーモード
+;; http://barelyenough.org/projects/rspec-mode/
+;; FIXME: C-c ,vでrspecを動かすはずだがエラーが出て動かない
+(require 'rspec-mode)
+
 ;;* ruby-mode-hook
 (defun ruby-mode-hooks ()
   (inf-ruby-keys)
@@ -100,7 +105,7 @@ and source-file directory for your debugger." t)
   ;;** キーバインドの追加
   (local-set-key [(C m)] 'ruby-reindent-then-newline-and-indent)
   (local-set-key (kbd "C-j") (kbd "C-e C-m"))
-  ;; (local-set-key [(C c) (C c)] 'compile)
+  (local-set-key [(C c) (C c)] 'compile)
   (local-set-key [(C c) (C d)] 'rubydb)
   (local-set-key [(C c) (C a)] 'ruby-beginning-of-defun)
   (local-set-key [(C c) (C e)] 'ruby-end-of-defun)
@@ -112,36 +117,47 @@ and source-file directory for your debugger." t)
   (local-unset-key (kbd "TAB"))         ; yas/expand
 
   ;;** smartchr
-  (setq smartchr-hash
+  (setq smartchr-ruby-equal
+        '(
+          "= "
+          "== "
+          "=== "
+          )
+
+        smartchr-hash
         '(
           ">"
           "=> "
           "=> '`!!''"
           "=> \"`!!'\""
           )
-        smartchr-regexp
+
+        smartchr-ruby-regexp
         '(
           "~"
           "=~ /`!!'/"
           "!~ /`!!'/"
           )
-        smartchr-block
+
+        smartchr-ruby-block
         '(
           "{ `!!' }"
           "{ |`!!'|  }"
           "{ "
           )
-        smartchr-comment
+
+        smartchr-ruby-comment
         '(
           "#"
           "#{`!!'}"
           "# => "
           ))
-  (local-set-key (kbd ">") (smartchr smartchr-hash))
-  (local-set-key (kbd "~") (smartchr smartchr-regexp))
+  (local-set-key (kbd "=") (smartchr smartchr-ruby-equal))
+  (local-set-key (kbd ">") (smartchr smartchr-ruby-hash))
+  (local-set-key (kbd "~") (smartchr smartchr-ruby-regexp))
   (local-unset-key (kbd "{"))           ; ruby-electric-curlies
-  (local-set-key (kbd "{") (smartchr smartchr-block))
-  (local-set-key (kbd "#") (smartchr smartchr-comment))
+  (local-set-key (kbd "{") (smartchr smartchr-ruby-block))
+  (local-set-key (kbd "#") (smartchr smartchr-ruby-comment))
 
   ;; ;;** rcodetools用キーバインド
   ;; (local-set-key [(M C i)] 'rct-complete-symbol)
