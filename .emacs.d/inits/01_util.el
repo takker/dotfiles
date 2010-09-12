@@ -120,10 +120,12 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;* M-O => 現在行に新しい行を追加
-(defadvice open-line (before open-whole-line
+(defadvice open-line (around open-whole-line
                              (&optional arg))
   "Insert newline before the line and leave the point."
-  (beginning-of-line 1))
+  (beginning-of-line 1)
+  ad-do-it
+  (indent-for-tab-command))
 (ad-activate 'open-line)
 (global-set-key (kbd "M-O") 'open-line)
 
@@ -131,8 +133,9 @@
 (defun open-next-line (&optional arg)
   "Insert a newline into the next line and leave point before it."
   (interactive "p")
-  (next-line 1)
-  (open-line arg))
+  (let ((next-line-add-newlines t))
+    (next-line 1)
+    (open-line arg)))
 (global-set-key (kbd "M-o") 'open-next-line)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

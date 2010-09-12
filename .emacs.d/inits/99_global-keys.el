@@ -14,12 +14,13 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; ctl-x-map
+;;* C-x C-; => comment-dwim
+(define-key ctl-x-map (kbd "C-;") 'comment-dwim)
+
 ;;* C-x C-b => anything-buffers+
 (define-key ctl-x-map [(C b)] 'anything-buffers+)
 
-;;* C-x C-o => 次のウィンドウに移動
 ;;* C-x C-p => 前のウィンドウに移動
-(define-key ctl-x-map [(C o)] 'other-window)
 (global-set-key-fn [(C x) (C p)] nil  ;mark-page
                    (interactive)
                    (other-window -1))

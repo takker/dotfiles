@@ -12,6 +12,7 @@
 (key-chord-define-global "df" 'descbinds-anything)
 (key-chord-define-global "fs" 'move-to-char-forward)
 (key-chord-define-global "FS" 'move-to-char-backward)
+(key-chord-define-global "kl" 'org-remember)
 
 ;;* hippie-expandの補完の優先順位
 (setq hippie-expand-try-functions-list
@@ -29,6 +30,5 @@
 ;;* smartchrの設定
 ;; http://tech.kayac.com/archive/emacs-tips-smartchr.html
 (require 'smartchr)
-;; (global-set-key (kbd "=") (smartchr '("= " "== " "=== ")))
 (global-set-key (kbd "=") (smartchr '("= " "=\"`!!'\"")))
 (global-set-key (kbd ">") (smartchr '(">" "=> ")))

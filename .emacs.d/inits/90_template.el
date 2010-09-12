@@ -7,6 +7,7 @@
 (yas/initialize)
 (yas/load-directory "~/.emacs.d/etc/snippets")
 (require 'yasnippet-config)
+(setq yas/prompt-function '(yas/dropdown-prompt))
 (global-set-key (kbd "C-x C-y") 'yas/oneshot-snippet)
 
 ;;* auto-insert

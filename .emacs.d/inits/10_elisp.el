@@ -8,9 +8,12 @@
 (setq skk-user-directory "~/.emacs.d/etc/skk")
 ;;** skkの設定ファイルを起動時にバイトコンパイルする
 (setq skk-byte-compile-init-file t)
+;;** skkを起動時に読み込む
+(setq skk-preload t)
 ;;** skk起動時に作動するフック
 (defun skk-load-hooks ()
   (require 'context-skk))               ; 文脈に応じた自動モード切り替え
+
 (add-hook 'skk-load-hook 'skk-load-hooks)
 (global-set-key [(C x) (C j)] 'skk-mode)
 (global-set-key [(C x) (j)] 'skk-auto-fill-mode)
