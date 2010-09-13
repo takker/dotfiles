@@ -12,16 +12,6 @@
 (add-to-list 'load-path "~/.emacs.d/auto-install")
 (add-to-list 'load-path "~/.emacs.d/elisp")
 
-;;* exec-path
-;; FIXME: rvmでインストールした実行ファイルが見つからないエラーが出るので
-;; ここで実行パスに追加
-;; シェルの環境変数をここで設定できれば一番良い
-(setq exec-path (cons "~/.rvm/gems/ruby-1.8.7-p299/bin" exec-path))
-(setq exec-path (cons "~/.rvm/rubies/ruby-1.8.7-p299/bin" exec-path))
-(setenv "PATH"
-        (concat '"~/.rvm/gems/ruby-1.8.7-p299/bin:"
-                "~.rvm/rubies/ruby-1.8.7-p299/bin:" (getenv "PATH")))
-
 ;;* auto-install
 ;; http://www.emacswiki.org/emacs/auto-install.el
 ;; FIXME: この部分を後ろに置くとauto-install時にエラー
