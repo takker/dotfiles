@@ -84,10 +84,13 @@ and source-file directory for your debugger." t)
 (defun ruby-mode-hooks ()
   (inf-ruby-keys)
   (ruby-electric-mode t)
-
+  (rspec-mode t)
   ;;** インデントは空白2文字
   (setq ruby-indent-level 2
         ruby-indent-tabs-mode nil)
+
+  ;;** compile用のコマンドを rake に設定
+  (set (make-local-variable 'compile-command) "rake")
 
   ;;** Don't want flymake mode for ruby regions in rhtml files
   (if (not (null buffer-file-name)) (flymake-mode))
@@ -124,7 +127,7 @@ and source-file directory for your debugger." t)
           "=== "
           )
 
-        smartchr-hash
+        smartchr-ruby-hash
         '(
           ">"
           "=> "
