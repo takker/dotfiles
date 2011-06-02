@@ -63,7 +63,13 @@ set whichwrap=b,s,h,l,<,>,[,]
 set nowrapscan
 
 " 編集中の内容を保ったまま別の画面に切り替えられるようにする
-set hid
+set hidden
+
+" コマンドライン補完を便利に
+set wildmenu
+
+" pathogenを読み込む
+call pathogen#runtime_append_all_bundles()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " キーバインド設定
