@@ -1,4 +1,4 @@
-" Vim filetype plugin
+"_ Vim filetype plugin
 " Language:		Ruby
 " Maintainer:		Gavin Sinclair <gsinclair at gmail.com>
 " Info:			$Id: ruby.vim,v 1.39 2007/05/06 16:38:40 tpope Exp $

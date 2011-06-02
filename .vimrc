@@ -23,7 +23,7 @@ highlight String        ctermfg=green   cterm=bold
 " 基本的な設定
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " タブ幅
-set ts=4 sw=4
+set shiftwidth=4
 set softtabstop=4
 set expandtab
 
@@ -32,6 +32,9 @@ set autoindent
 
 " インクリメンタルサーチを行う
 set incsearch
+
+" 検索語を強調表示（<C-L>を押すと現在の強調表示を解除する）
+set hlsearch
 
 " 行番号を表示する
 set number
@@ -78,6 +81,10 @@ call pathogen#runtime_append_all_bundles()
 nnoremap j gj
 nnoremap k gk
 
+" スペースキーでページ送り
+nnoremap <SPACE> <C-f>
+nnoremap <S-SPACE> <C-b>
+
 " <F2>: 前のバッファ
 " <F3>: 次のバッファ
 " <F4>: バッファを削除
@@ -88,6 +95,9 @@ map <F4> <ESC>:bw<CR>
 " 検索語を画面中央に
 nmap n nzz
 nmap N Nzz
+
+" <C-L>で検索後の強調表示を解除する
+nnoremap <C-L> :nohl<CR><C-L>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " オートコマンド設定
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -111,9 +121,9 @@ au BufNewFile,BufRead *.rb set nowrap tabstop=2 shiftwidth=2
 " 前回終了したカーソル行に移動
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
 
-"----------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vimスクリプト
-"----------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 文字コードの自動認識
 " http://www.kawaz.jp/pukiwiki/?vim#content_1_7
 if &encoding !=# 'utf-8'
@@ -172,9 +182,8 @@ if exists('&ambiwidth')
   set ambiwidth=double
 endif
 
-""""""""""""""""""""""""""""""
-"挿入モード時、ステータスラインの色を変更
-""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 挿入モード時、ステータスラインの色を変更
 let g:hi_insert = 'highlight StatusLine guifg=darkblue guibg=darkyellow gui=none ctermfg=blue ctermbg=yellow cterm=none'
 
 if has('syntax')
@@ -205,9 +214,8 @@ function! s:GetHighlight(hi)
   return hl
 endfunction
 
-" #########################################################################
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "  Open junk file. via.http://vim-users.jp/2010/11/hack181/
-" #########################################################################
 command! -nargs=0 JunkFile call s:open_junk_file()
 function! s:open_junk_file()
   let l:junk_dir = $HOME . '/junk'. strftime('/%Y')
