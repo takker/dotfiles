@@ -1,7 +1,7 @@
 ############################################################
 # エイリアスの定義
 # ドットファイル管理フォルダに移動
-alias dots='cd $HOME/projects/dotfiles'
+alias dots='cd $HOME/Projects/dotfiles'
 
 # apt関連
 alias search='apt-cache search'
@@ -32,7 +32,7 @@ alias sl='ls -AlF'
 ############################################################
 # 関数の定義
 # cdの直後にlsを実行
-function cdl() {
+function c() {
   builtin cd $1
   ls --color=auto
 }
