@@ -100,6 +100,17 @@ nnoremap <C-L> :nohl<CR><C-L>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " プラグイン設定
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" vundle.vim
+set nocompatible
+filetype off
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" インストールするプラグイン
+
+filetype plugin indent on
+
 """ ref.vim
 nmap ,rr :<C-u>Ref refe<Space>
 nmap ,ra :<C-u>Ref alc<Space>
