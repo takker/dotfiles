@@ -110,6 +110,19 @@ nmap ,ra :<C-u>Ref alc<Space>
 let g:ref_alc_start_linenumber = 39  "表示する行数
 let g:ref_alc_encoding = 'UTF-8' "文字コード
 
+""" quickrun.vim
+" RVMで入れたRubyを使う
+" http://d.hatena.ne.jp/uasi/20110411/1302531017
+let g:quickrun_config = {}
+
+if strlen($rvm_bin_path)
+	let g:quickrun_config['ruby'] = {
+\		'command': 'ruby',
+\		'exec': '$rvm_bin_path/ruby %s',
+\		'tempfile': '{tempname()}.rb'
+\	}
+endif
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " オートコマンド設定
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
