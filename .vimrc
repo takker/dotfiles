@@ -1,12 +1,38 @@
+""" vundle.vim
+set nocompatible
+filetype off
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" インストールするプラグイン
+Bundle 'Shougo/neocomplcache'
+Bundle 'Shougo/unite.vim'
+Bundle 'tsukkee/unite-help'
+Bundle 'surround.vim'
+Bundle 'rails.vim'
+Bundle 'ruby-matchit'
+Bundle 'matchit.zip'
+Bundle 'quickrun.vim'
+Bundle 'ref.vim'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'ZenCoding.vim'
+
+Bundle 'vim-ruby/vim-ruby'
+Bundle 'motemen/git-vim'
+
+Bundle 'Zenburn'
+
+filetype plugin indent on
+
+" ファイル毎に異なる構文やプラグインを使うようにする
+syntax on
+
 " 文字エンコーディングの設定
 set encoding=utf-8
 "set encoding=cp932
 
 set fileencodings=utf-8,iso-2022-jp,iso-2022-jp-2,euc-jp,sjis
-
-" ファイル毎に異なる構文やプラグインを使うようにする
-syntax on
-filetype plugin indent on
 
 " カラースキーマの設定
 colorscheme zenburn
@@ -96,21 +122,9 @@ nmap N Nzz
 " <C-L>で検索後の強調表示を解除する
 nnoremap <C-L> :nohl<CR><C-L>
 
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " プラグイン設定
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" vundle.vim
-set nocompatible
-filetype off
-
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-" インストールするプラグイン
-
-filetype plugin indent on
-
 """ ref.vim
 nmap ,rr :<C-u>Ref refe<Space>
 nmap ,ra :<C-u>Ref alc<Space>
@@ -130,6 +144,9 @@ if strlen($rvm_bin_path)
 \		'tempfile': '{tempname()}.rb'
 \	}
 endif
+
+" neocomplcache
+let g:neocomplcache_enable_at_startup = 1 " 起動時に有効化
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " オートコマンド設定
