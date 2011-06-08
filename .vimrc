@@ -145,9 +145,79 @@ if strlen($rvm_bin_path)
 \	}
 endif
 
-" neocomplcache
-let g:neocomplcache_enable_at_startup = 1 " 起動時に有効化
+""" neocomplcache
+" 起動時に有効
+let g:neocomplcache_enable_at_startup = 1
+" snippet ファイルの保存先
+let g:neocomplcache_snippets_dir='~/.vim/snippets'
+" dictionary
+let g:neocomplcache_dictionary_filetype_lists = {
+    \ 'default' : '',
+    \ 'objc' : $HOME . '/.vim/dict/objc.dict'
+\ }
+" 日本語をキャッシュしない
+"let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+" 補完候補の数
+let g:neocomplcache_max_list = 5
+" 1番目の候補を自動選択
+let g:neocomplcache_enable_auto_select = 1
+" 辞書読み込み
+noremap  <Space>d. :<C-u>NeoComplCacheCachingDictionary<Enter>
+" <TAB> completion.
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+" C-jでオムニ補完
+inoremap <expr> <C-j> &filetype == 'vim' ? "\<C-x>\<C-v>\<C-p>" : "\<C-x>\<C-o>\<C-p>"
+" C-kを押すと行末まで削除
+inoremap <C-k> <C-o>D
+" C-nでneocomplcache補完
+inoremap <expr><C-n>  pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-p>"
+" C-pでkeyword補完
+inoremap <expr><C-p> pumvisible() ? "\<C-p>" : "\<C-p>\<C-n>"
+" 補完候補が表示されている場合は確定。そうでない場合は改行
+inoremap <expr><CR>  pumvisible() ? neocomplcache#close_popup() : "<CR>"
+" 補完をキャンセル
+inoremap <expr><C-e>  neocomplcache#close_popup()
 
+""" unite.vim
+" 入力モードで開始する
+" let g:unite_enable_start_insert=1
+"" キーバインドの設定
+" バッファ一覧: ,ub
+" ファイル一覧: ,uf
+" レジスタ一覧: ,ur
+" 最近使用したファイル一覧: ,um
+" 常用セット: ,uu
+" 全部乗せ: ,ua
+nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
+nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
+nnoremap <silent> ,um :<C-u>Unite file_mru<CR>
+nnoremap <silent> ,uu :<C-u>Unite buffer file_mru<CR>
+nnoremap <silent> ,ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
+au FileType ruby nnoremap <silent> ,uh :<C-u> Unite ref/refe<CR>
+
+" ウィンドウを分割して開く
+au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+au FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+" ウィンドウを縦に分割して開く
+au FileType unite nnoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
+au FileType unite inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
+" ESCキーを2回押すと終了する
+au FileType unite nnoremap <silent> <buffer> <ESC><ESC> q
+au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
+
+" フィルタ文字列の置換
+call unite#set_substitute_pattern('file', '\$\w\+', '\=eval(submatch(0))', 200)
+
+call unite#set_substitute_pattern('file', '[^~.]\zs/', '*/*', 20)
+call unite#set_substitute_pattern('file', '/\ze[^*]', '/*', 10)
+
+call unite#set_substitute_pattern('file', '^@@', '\=fnamemodify(expand("#"), ":p:h")."/*"', 2)
+call unite#set_substitute_pattern('file', '^@', '\=getcwd()."/*"', 1)
+call unite#set_substitute_pattern('file', '^\\', '~/*')
+
+call unite#set_substitute_pattern('file', '^;v', '~/.vim/*')
+call unite#set_substitute_pattern('file', '^;r', '\=$VIMRUNTIME."/*"')
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " オートコマンド設定
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
