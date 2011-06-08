@@ -8,6 +8,7 @@ call vundle#rc()
 " インストールするプラグイン
 Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/unite.vim'
+Bundle 'Shougo/vimshell'
 Bundle 'tsukkee/unite-help'
 Bundle 'surround.vim'
 Bundle 'rails.vim'
@@ -17,6 +18,8 @@ Bundle 'quickrun.vim'
 Bundle 'ref.vim'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'ZenCoding.vim'
+
+Bundle 'vimproc'
 
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'motemen/git-vim'
@@ -181,7 +184,7 @@ let g:neocomplcache_max_list = 5
 " 1番目の候補を自動選択
 let g:neocomplcache_enable_auto_select = 1
 " 辞書読み込み
-noremap  <Space>d. :<C-u>NeoComplCacheCachingDictionary<Enter>
+" noremap  <Space>d. :<C-u>NeoComplCacheCachingDictionary<Enter>
 " <TAB> completion.
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 " C-jでオムニ補完
@@ -285,6 +288,19 @@ function! RemoveRubyEval() range
   set nolz
   redraw
 endfunction
+
+""" vimshell
+" ,is => シェルを起動
+nnoremap <silent> ,is :VimShell<CR>
+" ,ipy => pythonを非同期で起動
+nnoremap <silent> ,ipy :VimShellInteractive python<CR>
+" ,irb => irbを非同期で起動
+nnoremap <silent> ,irb :VimShellInteractive irb<CR>
+" ,ss => 非同期で開いたインタプリタに現在の行を評価させる
+" (Visual),ss => 非同期で開いたインタプリタに選択行を評価させる
+nnoremap <silent> ,ss <S-v>:VimShellSendString<CR>
+vmap <silent> ,ss :VimShellSendString<CR>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " オートコマンド設定
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
