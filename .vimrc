@@ -237,6 +237,24 @@ call unite#set_substitute_pattern('file', '^\\', '~/*')
 
 call unite#set_substitute_pattern('file', '^;v', '~/.vim/*')
 call unite#set_substitute_pattern('file', '^;r', '\=$VIMRUNTIME."/*"')
+
+""" NERD commenter
+let g:NERDCreateDefaultMappings = 0
+let g:NERDSpaceDelims = 1
+
+" <Leader>cc => コメントのトグル
+" <Leader>ca => 行末にコメント追加＆編集
+" (Visual)<Leader>c => 選択範囲のコメントトグル
+nmap <Leader>cc <Plug>NERDCommenterToggle
+vmap <Leader>c <Plug>NERDCommenterToggle
+map <Leader>ca <Plug>NERDCommenterAppend
+" <Leader>cg => 行末までコメント
+" <Leader>cs => 複数行コメント
+" <Leader>cb => ブロック全体をコメントアウト
+nmap <leader>cg <Plug>NERDCommenterToEOL
+vmap <Leader>cs <Plug>NERDCommenterSexy
+vmap <Leader>cb <Plug>NERDCommenterMinimal
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " オートコマンド設定
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
