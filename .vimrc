@@ -255,6 +255,36 @@ nmap <leader>cg <Plug>NERDCommenterToEOL
 vmap <Leader>cs <Plug>NERDCommenterSexy
 vmap <Leader>cb <Plug>NERDCommenterMinimal
 
+""" xmpfilter
+" <S-F1>で現在行/選択行にxmpfilterを実行
+map <silent> <S-F1> !xmpfilter -a<cr>
+nmap <silent> <S-F1> V<S-F1>
+imap <silent> <S-F1> <ESC><S-F1>a
+
+" <S-F2>でバッファ全体にxmpfilterを実行
+nmap <silent> <S-F2> mzggVG!xmpfilter -a<cr>'z
+imap <silent> <S-F2> <ESC><S-F2>
+
+" <S-F3>で現在行/選択行に「# =>」マークを追加
+vmap <silent> <S-F3> !xmpfilter -m<cr>
+nmap <silent> <S-F3> V<S-F3>
+imap <silent> <S-F3> <ESC><S-F3>a
+
+" <S-F4>で現在行/選択行の「# =>」マークを削除
+vmap <silent> <S-F4> ms:call RemoveRubyEval()<CR>
+nmap <silent> <S-F4> V<S-F4>
+imap <silent> <S-F4> <ESC><S-F4>a
+
+function! RemoveRubyEval() range
+  let begv = a:firstline
+  let endv = a:lastline
+  normal Hmt
+  set lz
+  execute ":" . begv . "," . endv . 's/\s*# \(=>\|!!\).*$//e'
+  normal 'tzt`s
+  set nolz
+  redraw
+endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " オートコマンド設定
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
