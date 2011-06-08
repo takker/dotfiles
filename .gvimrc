@@ -7,12 +7,17 @@ highlight LineNr        guifg=grey
 highlight NonText       guifg=darkgrey
 highlight Folded        guifg=blue
 highlight SpecialKey    guifg=darkgrey gui=underline 
-highlight Statement     guifg=white
-highlight Comment       guifg=yellow
-highlight String        guifg=green   gui=bold
+highlight Statement     guifg=khaki gui=bold
+highlight Comment       guifg=orange
+highlight String        guifg=#ffa0a0
 highlight Search        guibg=blue
+highlight CursorLine    guibg=darkslateblue
+highlight Identifier    guifg=palegreen
+highlight Visual        guibg=darkblue
+
 set columns=90
 set lines=35
 
 " ツールバーのアイコンを非表示
-set toolbar-=icons
+set guioptions-=T
+

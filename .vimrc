@@ -34,9 +34,8 @@ set encoding=utf-8
 
 set fileencodings=utf-8,iso-2022-jp,iso-2022-jp-2,euc-jp,sjis
 
-" カラースキーマの設定
+" カラーテーマの設定
 colorscheme zenburn
-
 highlight LineNr        ctermfg=grey
 highlight NonText       ctermfg=darkgrey
 highlight Folded        ctermfg=blue
@@ -97,31 +96,51 @@ set hidden
 " コマンドライン補完を便利に
 set wildmenu
 
+" 現在のウィンドウに現在行表示
+au WinLeave * set nocursorline
+au WinEnter,BufRead * set cursorline
+
+" バックアップを作成しない
+set nobackup
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " キーバインド設定
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" ノーマルモード
 " 表示行単位で移動
 nnoremap j gj
 nnoremap k gk
 
 " スペースキーでページ送り
-nnoremap <SPACE> <C-f>
-nnoremap <S-SPACE> <C-b>
+nnoremap <SPACE> 8jzz
+nnoremap <S-SPACE> 8kzz
 
 " <F2>: 前のバッファ
 " <F3>: 次のバッファ
 " <F4>: バッファを削除
-map <F2> <ESC>:bp<CR>
-map <F3> <ESC>:bn<CR>
-map <F4> <ESC>:bw<CR>
+noremap <F2> <ESC>:bp<CR>
+noremap <F3> <ESC>:bn<CR>
+noremap <F4> <ESC>:bw<CR>
 
 " 検索語を画面中央に
-nmap n nzz
-nmap N Nzz
+nnoremap n nzz
+nnoremap N Nzz
 
 " <C-L>で検索後の強調表示を解除する
 nnoremap <C-L> :nohl<CR><C-L>
 
+" q:でのヒストリ表示を解除する
+nmap q: <NOP>
+
+" カーソル下のsyntax名を表示
+nnoremap ,s :<C-u>echo synIDattr(synID(line('.'), col('.'), 0), 'name')<CR>
+
+""" インサートモード
+" カーソル移動
+inoremap <C-f> <C-o>l
+inoremap <C-b> <C-o>h
+inoremap <C-p> <C-o>k
+inoremap <C-n> <C-o>j
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " プラグイン設定
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -364,3 +383,4 @@ endfunction
 
 nnoremap ,jf :JunkFile
 nnoremap ,j  :JunkFileDay
+
