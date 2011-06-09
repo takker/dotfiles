@@ -23,6 +23,7 @@ Bundle 'ref.vim'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'ZenCoding.vim'
 Bundle 'smartchr'
+Bundle 'project.tar.gz'
 
 Bundle 'vimproc'
 
