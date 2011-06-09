@@ -485,3 +485,18 @@ endfunction
 nnoremap ,jf :<C-u>JunkFile<CR>
 nnoremap ,ej :<C-u>JunkFileDay<CR>
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" カーソル下のURLをFirefoxで開く
+" http://d.hatena.ne.jp/shunsuk/20110508/1304865150
+function! HandleURI()
+  let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;:]*')
+  echo s:uri
+  if s:uri != ""
+    exec "!firefox \"" . s:uri . "\""
+  else
+    echo "No URI found in line."
+  endif
+endfunction
+
+nmap <Leader>w :call HandleURI()<CR>
+
