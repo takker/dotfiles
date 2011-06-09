@@ -1,3 +1,7 @@
+" 特定のファイルを編集するためのキーバインド
+nnoremap <silent> ,ev :<C-u>e ~/Projects/dotfiles/.vimrc<CR>
+nnoremap <silent> ,eg :<C-u>e ~/Projects/dotfiles/.gvimrc<CR>
+
 """ vundle.vim
 set nocompatible
 filetype off
@@ -127,11 +131,11 @@ nmap <silent> <C-x>p <C-w>p
 
 " emacs風のファイル操作
 imap <C-x><C-c> <ESC>:qa!
-nmap <C-x><C-c> :qa!
+nmap <C-x><C-c> :<C-u>qa!
 imap <C-x><C-w> <ESC>:w!<CR>
-nmap <C-x><C-w> :w!<CR>
+nmap <C-x><C-w> :<C-u>w!<CR>
 imap <C-x><C-f> <ESC>:e<SPACE>
-nmap <C-x><C-f> :e<SPACE>
+nmap <C-x><C-f> :<C-u>e<SPACE>
 
 " <F2>: 前のバッファ
 " <F3>: 次のバッファ
@@ -226,6 +230,11 @@ inoremap <C-k> <C-o>D
 inoremap <expr><CR>  pumvisible() ? neocomplcache#close_popup() : "<CR>"
 " 補完をキャンセル
 inoremap <expr><C-g>  neocomplcache#close_popup()
+" <C-i>でスニペットの展開
+imap <C-i> <Plug>(neocomplcache_snippets_expand)
+smap <C-i> <Plug>(neocomplcache_snippets_expand)
+" ,es でスニペットの編集
+nnoremap <silent> ,es :<C-u>NeoComplCacheEditSnippets<CR>
 
 """ unite.vim
 " 入力モードで開始する
@@ -472,6 +481,6 @@ function! s:open_junk_file_day()
   endif
 endfunction
 
-nnoremap ,jf :JunkFile
-nnoremap ,j  :JunkFileDay
+nnoremap ,jf :<C-u>JunkFile<CR>
+nnoremap ,ej :<C-u>JunkFileDay<CR>
 
