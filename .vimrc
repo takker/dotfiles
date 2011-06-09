@@ -110,6 +110,36 @@ set nobackup
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " キーバインド設定
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" ノーマルモード、インサートモード共通
+" emacs風のウィンドウ操作
+imap <silent> <C-x>1 <ESC>:only<CR>i
+nmap <silent> <C-x>1 :<C-u>only<CR>
+imap <silent> <C-x>2 <ESC>:split<CR>i
+nmap <silent> <C-x>2 :<C-u>split<CR>
+imap <silent> <C-x>3 <ESC>:vsplit<CR>i
+nmap <silent> <C-x>3 :<C-u>vsplit<CR>
+imap <silent> <C-x>k <ESC>:close<CR>i
+nmap <silent> <C-x>k :<C-u>close<CR>
+imap <silent> <C-x>o <ESC><C-w>wi
+nmap <silent> <C-x>o <C-w>w
+imap <silent> <C-x>p <ESC><C-w>pi
+nmap <silent> <C-x>p <C-w>p
+
+" emacs風のファイル操作
+imap <C-x><C-c> <ESC>:qa!
+nmap <C-x><C-c> :qa!
+imap <C-x><C-w> <ESC>:w!<CR>
+nmap <C-x><C-w> :w!<CR>
+imap <C-x><C-f> <ESC>:e<SPACE>
+nmap <C-x><C-f> :e<SPACE>
+
+" <F2>: 前のバッファ
+" <F3>: 次のバッファ
+" <F4>: バッファを削除
+noremap <F2> <ESC>:bp<CR>
+noremap <F3> <ESC>:bn<CR>
+noremap <F4> <ESC>:bw<CR>
+
 """ ノーマルモード
 " 表示行単位で移動
 nnoremap j gj
@@ -118,13 +148,6 @@ nnoremap k gk
 " スペースキーでページ送り
 nnoremap <SPACE> 8jzz
 nnoremap <S-SPACE> 8kzz
-
-" <F2>: 前のバッファ
-" <F3>: 次のバッファ
-" <F4>: バッファを削除
-noremap <F2> <ESC>:bp<CR>
-noremap <F3> <ESC>:bn<CR>
-noremap <F4> <ESC>:bw<CR>
 
 " 検索語を画面中央に
 nnoremap n nzz
@@ -141,10 +164,13 @@ nnoremap ,s :<C-u>echo synIDattr(synID(line('.'), col('.'), 0), 'name')<CR>
 
 """ インサートモード
 " カーソル移動
-inoremap <C-f> <C-o>l
-inoremap <C-b> <C-o>h
-inoremap <C-p> <C-o>k
-inoremap <C-n> <C-o>j
+imap <C-f> <Right>
+imap <C-b> <Left>
+imap <C-p> <Up>
+imap <C-n> <Down>
+imap <C-a> <Home>
+imap <C-e> <End>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " プラグイン設定
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -193,13 +219,13 @@ inoremap <expr> <C-j> &filetype == 'vim' ? "\<C-x>\<C-v>\<C-p>" : "\<C-x>\<C-o>\
 " C-kを押すと行末まで削除
 inoremap <C-k> <C-o>D
 " C-nでneocomplcache補完
-inoremap <expr><C-n>  pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-p>"
+" inoremap <expr><C-n>  pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-p>"
 " C-pでkeyword補完
-inoremap <expr><C-p> pumvisible() ? "\<C-p>" : "\<C-p>\<C-n>"
+" inoremap <expr><C-p> pumvisible() ? "\<C-p>" : "\<C-p>\<C-n>"
 " 補完候補が表示されている場合は確定。そうでない場合は改行
 inoremap <expr><CR>  pumvisible() ? neocomplcache#close_popup() : "<CR>"
 " 補完をキャンセル
-inoremap <expr><C-e>  neocomplcache#close_popup()
+inoremap <expr><C-g>  neocomplcache#close_popup()
 
 """ unite.vim
 " 入力モードで開始する
