@@ -18,6 +18,7 @@ Bundle 'quickrun.vim'
 Bundle 'ref.vim'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'ZenCoding.vim'
+Bundle 'smartchr'
 
 Bundle 'vimproc'
 
