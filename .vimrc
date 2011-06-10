@@ -24,6 +24,10 @@ Bundle 'scrooloose/nerdcommenter'
 Bundle 'ZenCoding.vim'
 Bundle 'smartchr'
 Bundle 'project.tar.gz'
+Bundle 'Align'
+Bundle 'eregex.vim'
+Bundle 'grep.vim'
+Bundle 'YankRing.vim'
 
 Bundle 'vimproc'
 
@@ -337,6 +341,11 @@ nnoremap <silent> ,irb :VimShellInteractive irb<CR>
 " (Visual),ss => 非同期で開いたインタプリタに選択行を評価させる
 nnoremap <silent> ,ss <S-v>:VimShellSendString<CR>
 vmap <silent> ,ss :VimShellSendString<CR>
+
+""" eregex.vim
+" ,/ ,? => Rubyスタイルの正規表現を使用して検索
+nnoremap ,/ :M/
+nnoremap ,? :M?
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " オートコマンド設定
