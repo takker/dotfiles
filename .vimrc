@@ -109,6 +109,9 @@ set hidden
 " コマンドライン補完を便利に
 set wildmenu
 
+" 補完を最長、全ての順に補完
+set wildmode=list:longest,full
+
 " 現在のウィンドウに現在行表示
 au WinLeave * set nocursorline
 au WinEnter,BufRead * set cursorline
@@ -163,13 +166,16 @@ nnoremap n nzz
 nnoremap N Nzz
 
 " <C-L>で検索後の強調表示を解除する
-nnoremap <C-L> :nohl<CR><C-L>
+nnoremap <C-L> :noh<CR><C-L>
 
 " q:でのヒストリ表示を解除する
 nmap q: <NOP>
 
 " カーソル下のsyntax名を表示
 nnoremap ,s :<C-u>echo synIDattr(synID(line('.'), col('.'), 0), 'name')<CR>
+
+" ,reでvimスクリプトを再読込
+nnoremap <silent> ,re :<C-u>execute "source " expand("%:p")<CR>
 
 """ インサートモード
 " カーソル移動

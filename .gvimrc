@@ -5,7 +5,7 @@ set guifont=Ricty\ 13
 colorscheme zenburn
 highlight LineNr        guifg=grey
 highlight NonText       guifg=darkgrey
-highlight Folded        guifg=blue
+highlight Folded        guifg=orange
 highlight SpecialKey    guifg=darkgrey gui=underline 
 highlight Statement     guifg=khaki gui=bold
 highlight Comment       guifg=orange
