@@ -3,6 +3,9 @@
 # ドットファイル管理フォルダに移動
 alias dots='cd $HOME/Projects/dotfiles'
 
+# open <file> or <URL> で関連付けられたコマンドで開く
+alias open=xdg-open
+
 # apt関連
 alias search='apt-cache search'
 alias install='sudo apt-get install -y'
