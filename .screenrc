@@ -1,0 +1,4 @@
+escape ^l^l
+caption always "%{= wk} %-w%{=bu dg}%n:%t%{-}%+w %= %{= wb}%y/%m/%d %{= wb}%c"
+termcapinfo xterm* ti@:te@
+defscrollback 10000
