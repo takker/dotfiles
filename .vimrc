@@ -24,10 +24,11 @@ Bundle 'scrooloose/nerdcommenter'
 Bundle 'ZenCoding.vim'
 Bundle 'smartchr'
 Bundle 'project.tar.gz'
-Bundle 'Align'
+Bundle 'himesuke/vim-alignta'
 Bundle 'eregex.vim'
 Bundle 'grep.vim'
 Bundle 'YankRing.vim'
+Bundle 'gmarik/vundle'
 
 Bundle 'vimproc'
 
@@ -262,15 +263,19 @@ let g:unite_enable_start_insert=1
 " 最近使用したファイル一覧: ,um
 " 常用セット: ,uu or <C-x><C-a>
 " 全部乗せ: ,ua
-nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
-nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
-nnoremap <silent> ,um :<C-u>Unite file_mru<CR>
-nnoremap <silent> ,uu :<C-u>Unite buffer file_mru<CR>
+nnoremap [unite] <Nop>
+xnoremap [unite] <Nop>
+nmap ,u [unite]
+xmap ,u [unite]
+nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
+nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
+nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>
+nnoremap <silent> [unite]u :<C-u>Unite buffer file_mru<CR>
 nnoremap <silent> <C-x><C-a> :<C-u>Unite buffer file_mru<CR>
 inoremap <silent> <C-x><C-a> <Esc>:Unite buffer file_mru<CR>
-nnoremap <silent> ,ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
-au FileType ruby nnoremap <silent> ,uh :<C-u> Unite ref/refe<CR>
+nnoremap <silent> [unite]i :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
+au FileType ruby nnoremap <silent> [unite]h :<C-u>Unite ref/refe<CR>
 
 " ウィンドウを分割して開く
 au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
@@ -359,6 +364,44 @@ vmap <silent> <Leader>ss :VimShellSendString<CR>
 " ,/ ,? => Rubyスタイルの正規表現を使用して検索
 nnoremap ,/ :M/
 nnoremap ,? :M?
+
+""" alignta
+let g:unite_source_alignta_preset_arguments = [
+\ ["Align at '='", '! =>\='],
+\ ["Align at ':'", '@01 :' ],
+\ ["Align at '|'", '|' ],
+\ ["Align at ')'", '@0 )' ],
+\ ["Align at ']'", '@0 ]' ],
+\ ["Align at '}'", '}' ],
+\]
+
+let s:comment_leadings = '^\s*\("\|#\|/\*\|//\|<!--\)'
+let g:unite_source_alignta_preset_options = [
+\ ["Justify Left", '<<' ],
+\ ["Justify Center", '||' ],
+\ ["Justify Right", '>>' ],
+\ ["Justify None", '==' ],
+\ ["Shift Left", '<-' ],
+\ ["Shift Right", '->' ],
+\ ["Shift Left [Tab]", '<--'],
+\ ["Shift Right [Tab]", '-->'],
+\ ["Margin 0:0", '@0' ],
+\ ["Margin 0:1", '@01'],
+\ ["Margin 1:0", '@10'],
+\ ["Margin 1:1", '@1' ],
+\
+\ 'v/' . s:comment_leadings,
+\ 'g/' . s:comment_leadings,
+\]
+unlet s:comment_leadings
+
+xnoremap <silent> A :Alignta! =>\=<CR>
+xnoremap <silent> a: :Alignta @01 :<CR>
+xmap <silent><expr> as mode() !=# 'v' ? ':Alignta! \S\+'."\<CR>" : 'as'
+xnoremap al :Alignta<Space>
+
+nnoremap <silent> [unite]a :<C-u>Unite alignta:options<CR>
+xnoremap <silent> [unite]a :<C-u>Unite alignta:arguments<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " オートコマンド設定
