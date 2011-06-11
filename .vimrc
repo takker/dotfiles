@@ -359,6 +359,10 @@ nnoremap ,? :M?
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " オートコマンド設定
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 常に開いているファイルと同じディレクトリをカレントディレクトリにする
+" http://www15.ocn.ne.jp/~tusr/vim/vim_text2.html#mozTocId567011
+au   BufEnter *   execute ":lcd " . expand("%:p:h")
+
 autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,exept,finally,def,class
 
 " 入力モード時、ステータスラインのカラーを変更
