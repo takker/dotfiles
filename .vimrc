@@ -262,7 +262,7 @@ let g:unite_enable_start_insert=1
 " レジスタ一覧: ,ur
 " 最近使用したファイル一覧: ,um
 " 常用セット: ,uu or <C-x><C-a>
-" 全部乗せ: ,ua
+" 全部乗せ: ,ui
 nnoremap [unite] <Nop>
 xnoremap [unite] <Nop>
 nmap ,u [unite]
