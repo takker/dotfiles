@@ -341,15 +341,15 @@ endfunction
 
 """ vimshell
 " ,is => シェルを起動
-nnoremap <silent> ,is :VimShell<CR>
+nnoremap <silent> <Leader>is :VimShell<CR>
 " ,ipy => pythonを非同期で起動
-nnoremap <silent> ,ipy :VimShellInteractive python<CR>
+nnoremap <silent> <Leader>ipy :VimShellInteractive python<CR>
 " ,irb => irbを非同期で起動
-nnoremap <silent> ,irb :VimShellInteractive irb<CR>
+nnoremap <silent> <Leader>irb :VimShellInteractive irb<CR>
 " ,ss => 非同期で開いたインタプリタに現在の行を評価させる
 " (Visual),ss => 非同期で開いたインタプリタに選択行を評価させる
-nnoremap <silent> ,ss <S-v>:VimShellSendString<CR>
-vmap <silent> ,ss :VimShellSendString<CR>
+nnoremap <silent> <Leader>ss <S-v>:VimShellSendString<CR>
+vmap <silent> <Leader>ss :VimShellSendString<CR>
 
 """ eregex.vim
 " ,/ ,? => Rubyスタイルの正規表現を使用して検索
