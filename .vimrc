@@ -61,6 +61,7 @@ highlight String        ctermfg=green   cterm=bold
 " 基本的な設定
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " タブ幅
+set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set expandtab
@@ -141,12 +142,16 @@ imap <silent> <C-x>p <ESC><C-w>pi
 nmap <silent> <C-x>p <C-w>p
 
 " emacs風のファイル操作
-imap <C-x><C-c> <ESC>:qa!
-nmap <C-x><C-c> :<C-u>qa!
-imap <C-x><C-w> <ESC>:w!<CR>
-nmap <C-x><C-w> :<C-u>w!<CR>
-imap <C-x><C-f> <ESC>:e<SPACE>
-nmap <C-x><C-f> :<C-u>e<SPACE>
+imap <C-x><C-z> <ESC>:qa!
+nmap <C-x><C-z> :<C-u>qa!
+imap <C-x><C-s> <ESC>:w!<CR>
+nmap <C-x><C-s> :<C-u>w!<CR>
+imap <C-x>s     <ESC>:wall<CR>
+nmap <C-x>s     :<C-u>wall<CR>
+imap <C-x>f     <ESC>:e<Space>
+nmap <C-x>f     :<C-u>e<Space>
+imap <C-x>i     <ESC>:r<Space>
+nmap <C-x>i     :<C-u>r<Space>
 
 " <F2>: 前のバッファ
 " <F3>: 次のバッファ
@@ -161,7 +166,7 @@ nnoremap j gj
 nnoremap k gk
 
 " スペースキーでページ送り
-nnoremap <SPACE> 8jzz
+nnoremap <Space> 8jzz
 nnoremap <S-SPACE> 8kzz
 
 " 検索語を画面中央に
@@ -170,9 +175,6 @@ nnoremap N Nzz
 
 " <C-L>で検索後の強調表示を解除する
 nnoremap <C-L> :noh<CR><C-L>
-
-" q:でのヒストリ表示を解除する
-nmap q: <NOP>
 
 " カーソル下のsyntax名を表示
 nnoremap ,s :<C-u>echo synIDattr(synID(line('.'), col('.'), 0), 'name')<CR>
@@ -299,8 +301,8 @@ let g:NERDSpaceDelims = 1
 " <Leader>ca => 行末にコメント追加＆編集
 " (Visual)<Leader>c => 選択範囲のコメントトグル
 nmap <Leader>cc <Plug>NERDCommenterToggle
-vmap <Leader>c <Plug>NERDCommenterToggle
-map <Leader>ca <Plug>NERDCommenterAppend
+vmap <Leader>c  <Plug>NERDCommenterToggle
+map  <Leader>ca <Plug>NERDCommenterAppend
 " <Leader>cg => 行末までコメント
 " <Leader>cs => 複数行コメント
 " <Leader>cb => ブロック全体をコメントアウト
@@ -310,7 +312,7 @@ vmap <Leader>cb <Plug>NERDCommenterMinimal
 
 """ xmpfilter
 " <S-F1>で現在行/選択行にxmpfilterを実行
-map <silent> <S-F1> !xmpfilter -a<cr>
+map  <silent> <S-F1> !xmpfilter -a<cr>
 nmap <silent> <S-F1> V<S-F1>
 imap <silent> <S-F1> <ESC><S-F1>a
 
@@ -514,11 +516,11 @@ function! HandleURI()
   let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;:]*')
   echo s:uri
   if s:uri != ""
-    exec "!firefox \"" . s:uri . "\""
+    exec "!xdg-open \"" . s:uri . "\""
   else
     echo "No URI found in line."
   endif
 endfunction
 
-nmap <Leader>w :call HandleURI()<CR>
+nmap ,w :call HandleURI()<CR>
 
