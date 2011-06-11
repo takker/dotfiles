@@ -74,6 +74,9 @@ set incsearch
 " 検索語を強調表示（<C-L>を押すと現在の強調表示を解除する）
 set hlsearch
 
+" 検索時に大文字小文字を無視
+set ignorecase
+
 " 行番号を表示する
 set number
 

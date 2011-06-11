@@ -15,7 +15,7 @@ highlight CursorLine    guibg=darkslateblue
 highlight Identifier    guifg=palegreen
 highlight Visual        guibg=darkblue
 
-set columns=90
+set columns=120
 set lines=35
 
 " ツールバーのアイコンを非表示
