@@ -254,19 +254,21 @@ nnoremap <silent> ,es :<C-u>NeoComplCacheEditSnippets<CR>
 
 """ unite.vim
 " 入力モードで開始する
-" let g:unite_enable_start_insert=1
+let g:unite_enable_start_insert=1
 "" キーバインドの設定
 " バッファ一覧: ,ub
 " ファイル一覧: ,uf
 " レジスタ一覧: ,ur
 " 最近使用したファイル一覧: ,um
-" 常用セット: ,uu
+" 常用セット: ,uu or <C-x><C-a>
 " 全部乗せ: ,ua
 nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
 nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
 nnoremap <silent> ,um :<C-u>Unite file_mru<CR>
 nnoremap <silent> ,uu :<C-u>Unite buffer file_mru<CR>
+nnoremap <silent> <C-x><C-a> :<C-u>Unite buffer file_mru<CR>
+inoremap <silent> <C-x><C-a> <Esc>:Unite buffer file_mru<CR>
 nnoremap <silent> ,ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
 au FileType ruby nnoremap <silent> ,uh :<C-u> Unite ref/refe<CR>
 
