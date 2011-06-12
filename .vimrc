@@ -1,6 +1,8 @@
 " 特定のファイルを編集するためのキーバインド
-nnoremap <silent> ,ev :<C-u>e ~/Projects/dotfiles/.vimrc<CR>
-nnoremap <silent> ,eg :<C-u>e ~/Projects/dotfiles/.gvimrc<CR>
+nnoremap [edit] <Nop>
+nmap ,e [edit]
+nnoremap <silent> [edit]v :<C-u>e ~/Projects/dotfiles/.vimrc<CR>
+nnoremap <silent> [edit]g :<C-u>e ~/Projects/dotfiles/.gvimrc<CR>
 
 """ vundle.vim
 set nocompatible
@@ -9,34 +11,22 @@ filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
-" インストールするプラグイン
-Bundle 'Shougo/neocomplcache'
-Bundle 'Shougo/unite.vim'
-Bundle 'Shougo/vimshell'
-Bundle 'tsukkee/unite-help'
-Bundle 'h1mesuke/unite-outline'
-Bundle 'surround.vim'
-Bundle 'rails.vim'
-Bundle 'ruby-matchit'
-Bundle 'matchit.zip'
-Bundle 'quickrun.vim'
-Bundle 'ref.vim'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'ZenCoding.vim'
-Bundle 'smartchr'
-Bundle 'project.tar.gz'
-Bundle 'h1mesuke/vim-alignta'
-Bundle 'eregex.vim'
-Bundle 'grep.vim'
-Bundle 'YankRing.vim'
-Bundle 'gmarik/vundle'
-Bundle 'sgur/unite-qf'
-Bundle 'vimproc'
+" http://d.hatena.ne.jp/ZoAmichi/20110515/1305391268
+" 1.bundles.vimでプラグインのリストを管理
+" 2.EditBundlesでこのリストの編集を開始
+" 3.リストを保存することでg:bundlesを更新してBundleCleanする
+let $bundles_file=$HOME.'/.vim/bundles.vim'
+com! EditBundles :e $bundles_file
+nnoremap <silent> [edit]b :<C-u>EditBundles<CR>
 
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'motemen/git-vim'
+augroup Vundle
+  au BufWritePost $bundles_file call vundle#config#init()
+  au BufWritePost $bundles_file source $bundles_file
+  au BufWritePost $bundles_file BundleClean
+  au BufWritePost $bundles_file BundleInstall
+augroup END
 
-Bundle 'Zenburn'
+source $bundles_file
 
 filetype plugin indent on
 
@@ -251,8 +241,8 @@ inoremap <expr><C-g>  neocomplcache#close_popup()
 " <C-i>でスニペットの展開
 imap <C-i> <Plug>(neocomplcache_snippets_expand)
 smap <C-i> <Plug>(neocomplcache_snippets_expand)
-" ,es でスニペットの編集
-nnoremap <silent> ,es :<C-u>NeoComplCacheEditSnippets<CR>
+" [edit]s でスニペットの編集
+nnoremap <silent> [edit]s :<C-u>NeoComplCacheEditSnippets<CR>
 
 """ unite.vim
 " 入力モードで開始する
@@ -557,7 +547,7 @@ function! s:open_junk_file_day()
 endfunction
 
 nnoremap ,jf :<C-u>JunkFile<CR>
-nnoremap ,ej :<C-u>JunkFileDay<CR>
+nnoremap [edit]j :<C-u>JunkFileDay<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " カーソル下のURLをFirefoxで開く
