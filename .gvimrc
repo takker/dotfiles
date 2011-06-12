@@ -6,7 +6,7 @@ colorscheme zenburn
 highlight LineNr        guifg=grey
 highlight NonText       guifg=darkgrey
 highlight Folded        guifg=orange
-highlight SpecialKey    guifg=darkgrey gui=underline 
+highlight SpecialKey    guifg=darkgrey guibg=red gui=underline
 highlight Statement     guifg=khaki gui=bold
 highlight Comment       guifg=orange
 highlight String        guifg=#ffa0a0

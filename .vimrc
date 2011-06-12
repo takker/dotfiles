@@ -73,6 +73,9 @@ set ignorecase
 " 行番号を表示する
 set number
 
+" フォールドカラムの設定
+set foldcolumn=2
+
 " コマンド表示
 set showcmd
 
@@ -95,6 +98,10 @@ set smarttab
 
 " カーソルを行頭、行末で止まらないようにする
 set whichwrap=b,s,h,l,<,>,[,]
+
+" 特殊文字を表示する
+set list
+set listchars=tab:\ \ ,extends:<,trail:\ 
 
 " 検索をファイルの先頭へループしない
 set nowrapscan
@@ -199,11 +206,11 @@ let g:ref_alc_encoding = 'UTF-8' "文字コード
 let g:quickrun_config = {}
 
 if strlen($rvm_bin_path)
-	let g:quickrun_config['ruby'] = {
-\		'command': 'ruby',
-\		'exec': '$rvm_bin_path/ruby %s',
-\		'tempfile': '{tempname()}.rb'
-\	}
+    let g:quickrun_config['ruby'] = {
+\       'command': 'ruby',
+\       'exec': '$rvm_bin_path/ruby %s',
+\       'tempfile': '{tempname()}.rb'
+\   }
 endif
 
 """ neocomplcache
