@@ -14,6 +14,7 @@ Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/unite.vim'
 Bundle 'Shougo/vimshell'
 Bundle 'tsukkee/unite-help'
+Bundle 'h1mesuke/unite-outline'
 Bundle 'surround.vim'
 Bundle 'rails.vim'
 Bundle 'ruby-matchit'
@@ -24,7 +25,7 @@ Bundle 'scrooloose/nerdcommenter'
 Bundle 'ZenCoding.vim'
 Bundle 'smartchr'
 Bundle 'project.tar.gz'
-Bundle 'himesuke/vim-alignta'
+Bundle 'h1mesuke/vim-alignta'
 Bundle 'eregex.vim'
 Bundle 'grep.vim'
 Bundle 'YankRing.vim'
@@ -260,6 +261,7 @@ let g:unite_enable_start_insert=1
 " バッファ一覧: ,ub
 " ファイル一覧: ,uf
 " レジスタ一覧: ,ur
+" アウトライン: ,uo
 " 最近使用したファイル一覧: ,um
 " 常用セット: ,uu or <C-x><C-a>
 " 全部乗せ: ,ui
@@ -270,6 +272,7 @@ xmap ,u [unite]
 nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
 nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
+nnoremap <silent> [unite]o :<C-u>Unite -buffer-name=outline outline<CR>
 nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>
 nnoremap <silent> [unite]u :<C-u>Unite buffer file_mru<CR>
 nnoremap <silent> <C-x><C-a> :<C-u>Unite buffer file_mru<CR>
