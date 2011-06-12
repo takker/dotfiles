@@ -30,7 +30,7 @@ Bundle 'eregex.vim'
 Bundle 'grep.vim'
 Bundle 'YankRing.vim'
 Bundle 'gmarik/vundle'
-
+Bundle 'sgur/unite-qf'
 Bundle 'vimproc'
 
 Bundle 'vim-ruby/vim-ruby'
@@ -279,6 +279,8 @@ nnoremap <silent> <C-x><C-a> :<C-u>Unite buffer file_mru<CR>
 inoremap <silent> <C-x><C-a> <Esc>:Unite buffer file_mru<CR>
 nnoremap <silent> [unite]i :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
 au FileType ruby nnoremap <silent> [unite]h :<C-u>Unite ref/refe<CR>
+nnoremap <silent> [unite]q :<C-u>Unite -buffer-name=quickfix -no-quit qf<CR>
+nnoremap <silent> [unite]g :<C-u>Unite -buffer-name=grep qf:ex=<CR>grep<Space>
 
 " ウィンドウを分割して開く
 au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
