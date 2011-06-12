@@ -419,6 +419,16 @@ xnoremap al :Alignta<Space>
 nnoremap <silent> [unite]a :<C-u>Unite alignta:options<CR>
 xnoremap <silent> [unite]a :<C-u>Unite alignta:arguments<CR>
 
+""" Evervim
+" ,ec => ノートを作成
+" ,en => ノート一覧を表示
+" ,et => タグ一覧を表示
+" ,es => ノートを検索
+nnoremap <silent> ,ec :<C-u>EvervimCreateNote<CR>
+nnoremap <silent> ,en :<C-u>EvervimNotebookList<CR>
+nnoremap <silent> ,et :<C-u>EvervimListTags<CR>
+nnoremap <silent> ,es :<C-u>EvervimSearchByQuery<Space>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " オートコマンド設定
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
