@@ -1,4 +1,5 @@
 " インストールするプラグイン
+Bundle 'Gist.vim'
 Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/unite.vim'
 Bundle 'Shougo/vimshell'

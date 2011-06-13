@@ -14,3 +14,6 @@
 	ls = ls-files
 	show-graph = log --graph --abbrev-commit --pretty=oneline
 	unstage = reset HEAD
+[github]
+	user = takker
+	token = e7e6350ff635cb6e6336a815f53d13fb
