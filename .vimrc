@@ -122,6 +122,9 @@ au WinEnter,BufRead * set cursorline
 " バックアップを作成しない
 set nobackup
 
+" ヤンクしたデータをクリップボードにも送る
+set clipboard+=unnamed
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " キーバインド設定
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -223,6 +226,7 @@ if strlen($GEM_HOME)
     let g:quickrun_config['ruby.rspec'] = {
 \       'command': 'rspec',
 \       'exec'   : '$GEM_HOME/bin/rspec -fs %s',
+\		'split'  : '',
 \       'tmpfile': '{tempname()}_spec.rb'
 \   }
 endif
@@ -432,6 +436,9 @@ nnoremap <silent> ,es :<C-u>EvervimSearchByQuery<Space>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " オートコマンド設定
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ファイルの拡張子に応じたテンプレートを開く
+autocmd BufNewFile *.rb 0r $HOME/.vim/templates/rb.tpl
+
 " RSpecのファイルタイプをruby.rspecにする
 augroup myRSpec
   autocmd!
