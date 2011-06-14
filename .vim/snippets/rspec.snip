@@ -1,0 +1,29 @@
+snippet     before
+abbr        before(:each/:all) do ... end
+prev_word   '^'
+    before(:${1:each}) do
+      ${2}
+    end
+
+snippet     it
+abbr        it "" do ... end
+prev_word   '^'
+    it "${1:description}" do
+      ${2}
+    end
+
+snippet desc
+abbr describe "" do ... end
+prev_word '^'
+    describe "${1:description}" do
+      ${2}
+    end
+
+snippet     should
+prev_word   '^'
+    ${1:target}.should ${2:condition}
+
+snippet     shouldnt
+prev_word   '^'
+    ${1:target}.should_not ${2:condition}
+

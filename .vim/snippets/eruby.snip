@@ -1,0 +1,16 @@
+snippet     if
+abbr        <% if ... %>...<% end %>
+prev_word   '^'
+    <% if ${1:condition} %>
+      ${2}
+    <% end %>
+
+snippet     ifelse
+abbr        <% if ... %>...<% else %>...<% end %>
+prev_word   '^'
+    <% if ${1:condition} %>
+      ${2}
+    <% else %>
+      ${3}
+    <% end %>
+
