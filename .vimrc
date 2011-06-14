@@ -112,8 +112,8 @@ set hidden
 " コマンドライン補完を便利に
 set wildmenu
 
-" 補完を最長、全ての順に補完
-set wildmode=list:longest,full
+" 補完を最長一致、各候補の順に行う
+set wildmode=longest,full
 
 " 現在のウィンドウに現在行表示
 au WinLeave * set nocursorline
@@ -226,7 +226,7 @@ if strlen($GEM_HOME)
     let g:quickrun_config['ruby.rspec'] = {
 \       'command': 'rspec',
 \       'exec'   : '$GEM_HOME/bin/rspec -fs %s',
-\		'split'  : '',
+\       'split'  : '',
 \       'tmpfile': '{tempname()}_spec.rb'
 \   }
 endif
