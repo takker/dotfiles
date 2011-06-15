@@ -1,3 +1,6 @@
+" <Leader>をスペースに設定
+let mapleader = " "
+
 " 特定のファイルを編集するためのキーバインド
 nnoremap [edit] <Nop>
 nmap ,e [edit]
@@ -168,8 +171,12 @@ nnoremap j gj
 nnoremap k gk
 
 " スペースキーでページ送り
-nnoremap <Space> 8jzz
-nnoremap <S-SPACE> 8kzz
+" nnoremap <Space> 8jzz
+" nnoremap <S-SPACE> 8kzz
+
+" ページ送りしたときにカーソルを画面の中央位置に
+nnoremap <C-f> <C-f>zz
+nnoremap <C-b> <C-b>zz
 
 " 検索語を画面中央に
 nnoremap n nzz
@@ -177,6 +184,12 @@ nnoremap N Nzz
 
 " <C-L>で検索後の強調表示を解除する
 nnoremap <C-L> :noh<CR><C-L>
+
+" ノーマルモードでも<CR>で改行を挿入
+noremap <CR> o<Esc>
+
+" <Leader><Leader>で変更があれば保存
+noremap <Leader><Leader> :up<CR>
 
 " カーソル下のsyntax名を表示
 nnoremap ,s :<C-u>echo synIDattr(synID(line('.'), col('.'), 0), 'name')<CR>
@@ -192,6 +205,10 @@ imap <C-p> <Up>
 imap <C-n> <Down>
 imap <C-a> <Home>
 imap <C-e> <End>
+
+""" ビジュアルモード
+" v2連打で行末まで選択
+vnoremap v $h
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " プラグイン設定
