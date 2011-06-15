@@ -53,8 +53,8 @@ highlight String        ctermfg=green   cterm=bold
 " 基本的な設定
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " タブ幅
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 set softtabstop=4
 set expandtab
 
@@ -224,10 +224,10 @@ endif
 " RVMで入れたRSpecを使う
 if strlen($GEM_HOME)
     let g:quickrun_config['ruby.rspec'] = {
-\       'command': 'rspec',
-\       'exec'   : '$GEM_HOME/bin/rspec -fs %s',
-\       'split'  : '',
-\       'tmpfile': '{tempname()}_spec.rb'
+\       'command': "rspec",
+\       'exec'   : "$GEM_HOME/bin/rspec -l {line('.')} %s",
+\       'split'  : "",
+\       'tmpfile': "{tempname()}_spec.rb"
 \   }
 endif
 
