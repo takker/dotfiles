@@ -1,3 +1,4 @@
+# before
 snippet     before
 abbr        before(:each/:all) do ... end
 prev_word   '^'
@@ -5,6 +6,7 @@ prev_word   '^'
       ${2}
     end
 
+# it
 snippet     it
 abbr        it "" do ... end
 prev_word   '^'
@@ -12,6 +14,7 @@ prev_word   '^'
       ${2}
     end
 
+# desc => describe
 snippet desc
 abbr describe "" do ... end
 prev_word '^'
@@ -19,10 +22,12 @@ prev_word '^'
       ${2}
     end
 
+# should
 snippet     should
 prev_word   '^'
     ${1:target}.should ${2:condition}
 
+# shouldnt => should_not
 snippet     shouldnt
 prev_word   '^'
     ${1:target}.should_not ${2:condition}

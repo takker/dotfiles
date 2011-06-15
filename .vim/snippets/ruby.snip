@@ -1,3 +1,15 @@
 snippet     hh
 abbr        key => value
     ${1:key} => ${2:value}
+
+snippet     ea
+abbr        each do ... end
+    each do
+      ${1}
+    end
+
+snippet     eav
+abbr        each do |var| ... end
+    each do |${1:i}|
+      ${2}
+    end
