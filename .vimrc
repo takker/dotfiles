@@ -242,32 +242,67 @@ let g:neocomplcache_dictionary_filetype_lists = {
     \ 'objc' : $HOME . '/.vim/dict/objc.dict'
 \ }
 " 日本語をキャッシュしない
-"let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+if !exists('g:neocomplcache_keyword_patterns')
+  let g:neocomplcache_keyword_patterns = {}
+endif
+let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 " 補完候補の数
-let g:neocomplcache_max_list = 5
+let g:neocomplcache_max_list = 10
 " 1番目の候補を自動選択
 let g:neocomplcache_enable_auto_select = 1
+" -を入力すると候補の横に表示される英数字で候補を選択できる
+let g:neocomplcache_enable_quick_match = 1
+" _を入力したときに、それを単語の区切りとしてあいまい検索を行う
+let g:neocomplcache_enable_underbar_completion = 1
+" smartcaseを有効にする
+let g:neocomplcache_enable_smart_case = 1
 " 辞書読み込み
 " noremap  <Space>d. :<C-u>NeoComplCacheCachingDictionary<Enter>
 " <TAB> completion.
-inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-" C-jでオムニ補完
-inoremap <expr> <C-j> &filetype == 'vim' ? "\<C-x>\<C-v>\<C-p>" : "\<C-x>\<C-o>\<C-p>"
-" C-kを押すと行末まで削除
-inoremap <C-k> <C-o>D
+" http://masterka.seesaa.net/article/161781923.html
+function! InsertTabWrapper()
+    if pumvisible()
+        return "\<c-n>"
+    endif
+    let col = col('.') - 1
+    if !col || getline('.')[col - 1] !~ '\k\|<\|/'
+        return "\<tab>"
+    elseif exists('&omnifunc') && &omnifunc == ''
+        return "\<c-n>"
+    else
+        return "\<c-x>\<c-o>"
+    endif
+endfunction
+inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 " C-nでneocomplcache補完
 " inoremap <expr><C-n>  pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-p>"
 " C-pでkeyword補完
 " inoremap <expr><C-p> pumvisible() ? "\<C-p>" : "\<C-p>\<C-n>"
-" 補完候補が表示されている場合は確定。そうでない場合は改行
-inoremap <expr><CR>  pumvisible() ? neocomplcache#close_popup() : "<CR>"
-" 補完をキャンセル
-inoremap <expr><C-g>  neocomplcache#close_popup()
-" <C-i>でスニペットの展開
-imap <C-i> <Plug>(neocomplcache_snippets_expand)
-smap <C-i> <Plug>(neocomplcache_snippets_expand)
-" [edit]s でスニペットの編集
-nnoremap <silent> [edit]s :<C-u>NeoComplCacheEditSnippets<CR>
+" <C-j>で候補を選択
+inoremap <expr> <C-j> neocomplcache#close_popup()
+" <CR>で候補を選択して改行
+inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+" <C-k>で補完をキャンセル
+inoremap <expr> <C-k> neocomplcache#cancel_popup()
+" <C-l>で補完候補の共通文字列を補完する
+inoremap <expr> <C-l> neocomplcache#complete_common_string()
+" <C-s>でスニペットの展開
+imap <C-s> <Plug>(neocomplcache_snippets_expand)
+smap <C-s> <Plug>(neocomplcache_snippets_expand)
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+" [edit]p でスニペットの編集
+nnoremap <silent> [edit]p :<C-u>NeoComplCacheEditSnippets<CR>
+" Enable heavy omni completion.
+if !exists('g:neocomplcache_omni_patterns')
+    let g:neocomplcache_omni_patterns = {}
+endif
+let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+"autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
+let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 
 """ unite.vim
 " 入力モードで開始する
