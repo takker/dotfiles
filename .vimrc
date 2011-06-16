@@ -210,6 +210,11 @@ imap <C-n> <Down>
 imap <C-a> <Home>
 imap <C-e> <End>
 
+" <C-y><C-y>で上の行の単語をコピー
+" <C-y><C-e>で下の行の単語をコピー
+inoremap <expr> <C-y><C-y> col('.')==1 ? "\<Esc>kywjpa" : "\<Esc>klywjpa"
+inoremap <expr> <C-y><C-e> col('.')==1 ? "\<Esc>jywkpa" : "\<Esc>jlywkpa"
+
 """ ビジュアルモード
 " v2連打で行末まで選択
 vnoremap v $h
