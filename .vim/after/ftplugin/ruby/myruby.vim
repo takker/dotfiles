@@ -8,3 +8,6 @@ setlocal foldmethod=syntax
 
 compiler ruby
 
+" ,cで構文チェック
+nmap <buffer> ,c :<C-u>make -c %<CR>
+

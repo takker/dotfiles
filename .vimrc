@@ -166,6 +166,10 @@ noremap <F3> <ESC>:bn<CR>
 noremap <F4> <ESC>:bw<CR>
 
 """ ノーマルモード
+" +, -でカーソル位置を画面中央に保ったまま移動
+nnoremap + jzz
+nnoremap - kzz
+
 " 表示行単位で移動
 nnoremap j gj
 nnoremap k gk
