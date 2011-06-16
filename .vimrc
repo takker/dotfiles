@@ -213,6 +213,14 @@ vnoremap v $h
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " プラグイン設定
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" NERDTree
+nmap ,to :<C-u>NERDTree<Space>
+nmap ,tf :<C-u>NERDTreeFind<CR>
+nmap ,tt :<C-u>NERDTreeToggle<CR>
+nmap ,tB :<C-u>Bookmark<Space>
+nmap ,tr :<C-u>BookmarkToRoot<Space>
+nmap ,tb :<C-u>OpenBookmark<Space>
+
 """ ref.vim
 nmap ,rr :<C-u>Ref refe<Space>
 nmap ,ra :<C-u>Ref alc<Space>
