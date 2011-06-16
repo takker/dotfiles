@@ -1,15 +1,30 @@
+# hash: key => value
 snippet     hh
 abbr        key => value
     ${1:key} => ${2:value}
 
+# each do  end
 snippet     ea
 abbr        each do ... end
     each do
       ${1}
     end
 
+# each do |var|  end
 snippet     eav
 abbr        each do |var| ... end
     each do |${1:i}|
       ${2}
     end
+
+# alias
+snippet     alias
+prev_word   '^'
+    alias :${1:new_name} :${2:old_name}
+
+# require
+snippet     req
+abbr        require
+prev_word   '^'
+    require "${1}"
+    ${0}
