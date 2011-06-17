@@ -203,12 +203,12 @@ nnoremap <silent> ,re :<C-u>execute "source " expand("%:p")<CR>
 
 """ インサートモード
 " カーソル移動
-imap <C-f> <Right>
-imap <C-b> <Left>
-imap <C-p> <Up>
-imap <C-n> <Down>
-imap <C-a> <Home>
-imap <C-e> <End>
+inoremap <C-f> <Right>
+inoremap <C-b> <Left>
+inoremap <C-p> <Up>
+inoremap <C-n> <Down>
+inoremap <C-a> <C-o>^
+inoremap <C-e> <End>
 
 " <C-y><C-y>で上の行の単語をコピー
 " <C-y><C-e>で下の行の単語をコピー
@@ -284,8 +284,14 @@ let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 let g:neocomplcache_max_list = 10
 " 1番目の候補を自動選択
 let g:neocomplcache_enable_auto_select = 1
-" -を入力すると候補の横に表示される英数字で候補を選択できる
+" 候補の横に表示される英数字で候補を選択できる
 let g:neocomplcache_enable_quick_match = 1
+" quickmatchを毎回表示
+let g:neocomplcache_quick_match_patterns = { 'default' : '' }
+" quickmatchで使用する文字
+let g:neocomplcache_quick_match_table = {
+            \'1' : 0, '2' : 1, '3' : 2, '4' : 3, '5' : 4, '6' : 5, '7' : 6, '8' : 7, '9' : 8, '0' : 9
+            \}
 " _を入力したときに、それを単語の区切りとしてあいまい検索を行う
 let g:neocomplcache_enable_underbar_completion = 1
 " smartcaseを有効にする
