@@ -192,8 +192,8 @@ nnoremap <C-L> :noh<CR><C-L>
 " ノーマルモードでも<CR>で改行を挿入
 noremap <CR> o<Esc>
 
-" <Leader><Leader>で変更があれば保存
-noremap <Leader><Leader> :up<CR>
+" <Leader><Leader>で末尾の空白を削除し、変更があれば保存
+noremap <silent> <Leader><Leader> :<C-u>%s/\s\+$//eg<CR>:noh<CR>:up<CR>
 
 " カーソル下のsyntax名を表示
 nnoremap ,s :<C-u>echo synIDattr(synID(line('.'), col('.'), 0), 'name')<CR>
