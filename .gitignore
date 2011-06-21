@@ -3,3 +3,4 @@
 .emacs.d/ac-comphist.dat
 *.swp
 .vim/bundle
+.vimperator/info/

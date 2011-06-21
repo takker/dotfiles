@@ -1,0 +1,70 @@
+"colorscheme sweets_snaka
+
+"ツールバーの表示・非表示
+set toolbars=nonavigation,nomenu,noaddons,nobookmarks
+map <C-t> :set toolbars=navigation,menu,bookmarks
+map <C-r> :set toolbars=nonavigation,nomenu,nobookmarks
+set gui+=addons
+
+"ヒントで使用する文字を指定
+set hintchars=ifjklasdhguonmerwc
+"ヒントのスタイル指定
+highlight Hint z-index:5000; font-family:monospace; font-size:15px; color:white; background-color:blue; border-color:ButtonShadow; border-width:0px; border-style:solid; padding:0px 1px 0px 1px; position:absolute; text-transform: uppercase;
+
+"----------------------------------------------------------
+"キーマップ
+map j 5<C-e>
+map k 5<C-y>
+
+"vimperatorrcの再読み込み
+map ,r source! "D:\\Doc\\AppSetting\\firefox\\vimperator\\_vimperatorrc"
+
+"----------------------------------------------------------
+"qmarks
+
+"gom,gorのようにgoに続けて入力・新規タブで開くにはgn
+"vimperatorから追加するコマンドは:delqmarks + 文字
+
+qmark m https://mail.google.com/
+qmark r https://www.google.com/reader/view/
+qmark t http://www.tumblr.com/
+
+"----------------------------------------------------------
+"プラグインの設定
+"***** ime_controller.js *****
+let g:ex_ime_mode = "inactive"  
+let g:textarea_ime_mode = "inactive"
+
+"***** ldrize_cooperation.js *****
+"ldrize_cooperation有効
+let g:ldrc_intelligence_bind="true"
+
+"j,k でLDRizeでなくVimperatorのスクロールで動く閾値
+"LDRizeで選択される次項目が 画面の高さ×指定値 より画面境界から離れている場合にVimperatorのスクロールに
+"初期値0.5
+let g:ldrc_skip = "0"
+
+"Shift-sでLDRize無効
+map S :toggleldrizecooperation<CR>
+
+"***** feedSomeKeys_2.js *****
+"対象外のページに移っても前の設定を引きずらないようにする
+"http://retlet.net/log/2008/06/feedsomekeys-js.html
+:autocmd LocationChange .* :fmapc
+
+"tumblr
+:autocmd LocationChange 'www\.tumblr\.com/' :fmap j k l p
+
+"Gmail
+autocmd LocationChange mail\.google\.com/mail :fmap c / j k n p o u e x s r a # [ ] z ? ! gi gs gt gd ga gc gl gb *a *n { }
+
+"GoogleReader
+"http://d.karashi.org/20101030.html#p01
+autocmd LocationChange www\.google\.(com|co\.jp)/reader :fmap -vkey j k n p m s v  A r S D N P X o O gh ga gs gt gu u / ?
+"GoogleReaderFullFeed
+autocmd LocationChange www\.google\.(com|co\.jp)/reader :fmap -vkey -event=keyup z
+
+"RTM
+autocmd LocationChange www\.rememberthemilk\.com/ :fmap -vkey t c p r s 1 2 3 4 a n i k j K J z <Tab> <Delete> <C-g> ?
+
+" vim: set ft=vim
