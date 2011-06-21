@@ -10,9 +10,13 @@ alias open=xdg-open
 alias search='apt-cache search'
 alias install='sudo apt-get install -y'
 
+# よく使うコマンドは1文字か2文字
+alias g='git'
+alias h='history 100'
+alias r='rails'
+alias v='gvim'
+
 alias diff='colordiff -u'
-alias em='emacsclient'
-alias h='history 20'
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
