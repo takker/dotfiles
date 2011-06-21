@@ -57,7 +57,13 @@ fi
 
 if [ "$color_prompt" = yes ]; then
 #    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-    PS1='\n\[\e[32;1m\](\[\e[37;1m\]\u\[\e[32;1m\])-(\[\e[37;1m\]jobs:\j\[\e[32;1m\])-(\[\e[37;1m\]\w\[\e[32;1m\])$(__git_ps1 "{%s}")\n(\[\e[35;1m\]! \!\[\e[32;1m\])-> \[\e[0m\]'
+#    PS1='\n\[\e[32;1m\](\[\e[37;1m\]\u\[\e[32;1m\])-(\[\e[37;1m\]jobs:\j\[\e[32;1m\])-(\[\e[37;1m\]\w\[\e[32;1m\])$(__git_ps1 "{%s}")\n(\[\e[35;1m\]! \!\[\e[32;1m\])-> \[\e[0m\]'
+    txtred='\[\e[31;1m\]'
+    txtgrn='\[\e[32;1m\]'
+    txtpur='\[\e[35;1m\]'
+    txtwht='\[\e[37;1m\]'
+    txtrst='\[\e[0m\]'
+    PS1="\n$txtgrn($txtwht\u$txtgrn)-(${txtwht}jobs:\j$txtgrn)-($txtwht\w$txtgrn)${txtred}\$(__git_ps1 ' [%s]')\n$txtpur($txtwht! \!$txtpur)-> $txtrst"
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
