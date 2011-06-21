@@ -254,6 +254,25 @@ vnoremap v $h
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " プラグイン設定
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ruby-debugger
+map <Leader>da :<C-u>Rdebugger<Space>
+map <Leader>dq :<C-u>RdbStop<CR>
+map <Leader>dw :<C-u>RdbCommand<Space>
+map <Leader>de :<C-u>RdbEval<Space>
+map <Leader>dx :<C-u>RdbCond<Space>
+map <Leader>dz :<C-u>RdbCatch<Space>
+map <Leader>dl :<C-u>RdbLog<CR>
+map <Leader>db  :call g:RubyDebugger.toggle_breakpoint()<CR>
+map <Leader>dv  :call g:RubyDebugger.open_variables()<CR>
+map <Leader>dm  :call g:RubyDebugger.open_breakpoints()<CR>
+map <Leader>dt  :call g:RubyDebugger.open_frames()<CR>
+map <Leader>ds  :call g:RubyDebugger.step()<CR>
+map <Leader>df  :call g:RubyDebugger.finish()<CR>
+map <Leader>dd  :call g:RubyDebugger.next()<CR>
+map <Leader>dc  :call g:RubyDebugger.continue()<CR>
+map <Leader>dQ  :call g:RubyDebugger.exit()<CR>
+map <Leader>dr  :call g:RubyDebugger.remove_breakpoints()<CR>
+
 """ NERDTree
 nmap ,to :<C-u>NERDTree<Space>
 nmap ,tf :<C-u>NERDTreeFind<CR>

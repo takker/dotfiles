@@ -1,4 +1,5 @@
 " インストールするプラグイン
+Bundle 'astashov/vim-ruby-debugger'
 Bundle 'Gist.vim'
 Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/unite.vim'
