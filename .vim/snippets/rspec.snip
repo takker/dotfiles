@@ -1,10 +1,27 @@
+# let
+snippet     let
+prev_word   '^'
+    let(:${1}) do
+      ${2:value}
+    end
+    ${0}
+
 # before
 snippet     before
-abbr        before(:each/:all) do ... end
 prev_word   '^'
     before(:${1:each}) do
       ${2}
     end
+    ${0}
+
+# subject
+snippet     sub
+abbr        subject
+prev_word   '^'
+    subject do
+      ${1}
+    end
+    ${0}
 
 # it
 snippet     it
@@ -14,6 +31,14 @@ prev_word   '^'
       ${2}
     end
 
+# its
+snippet     its
+prev_word   '^'
+   its(:${1:attribute}) do
+     ${2:block}
+   end
+   ${0}
+
 # desc => describe
 snippet desc
 abbr describe "" do ... end
@@ -22,13 +47,20 @@ prev_word '^'
       ${2}
     end
 
+snippet     con
+abbr        context
+prev_word   '^'
+    context "${1:description}" do
+      ${2}
+    end
+
 # should
 snippet     should
 prev_word   '^'
-    ${1:target}.should ${2:condition}
+    ${1:subject}.should ${2:condition}
 
 # shouldnt => should_not
 snippet     shouldnt
 prev_word   '^'
-    ${1:target}.should_not ${2:condition}
+    ${1:subject}.should_not ${2:condition}
 
