@@ -8,10 +8,10 @@ inoremap <buffer> <expr> / search(':/\?\%#', 'bcn') ? '/' : smartchr#one_of('/',
 
 inoremap <buffer> <expr> > smartchr#loop('>', '=>', '<=>', '>>')
 " #は文字列内なら#{}
-inoremap <buffer> <expr> # search('".*\%#', 'bcn') && search('\%#.*"', 'bcn') ? '#{}<Left>' : smartchr#loop('# ', '#')
+inoremap <buffer> <expr> # search('".*\%#', 'bcn') && search('\%#.*"', 'cn') ? '#{}<Left>' : smartchr#one_of('# ', '## ')
 " += などの場合は = の前に空白を入れない
-inoremap <buffer><expr> = search('\(&\<bar><bar>\<bar>+\<bar>-\<bar>/\<bar>>\<bar><\)\%#', 'bcn')? '= '
-                \ : search('\(*\<bar>!\)\%#', 'bcn') ? '= '
+inoremap <buffer><expr> = search('\(&\<bar><bar>\<bar>+\<bar>-\<bar>*\<bar>/\<bar>>\<bar><\<bar>!\)\%#', 'bcn')? '= '
+                \ : search('".*\%#', 'bcn') && search('\%#.*"', 'cn') ? '='
                 \ : smartchr#one_of(' = ', ' == ', ' =~ ', '=== ')
 
 " {を2連打で{|var|、}を2連打で改行
