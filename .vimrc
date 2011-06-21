@@ -4,14 +4,18 @@ let mapleader = " "
 " 特定のファイルを編集するためのキーバインド
 nnoremap [edit] <Nop>
 nmap ,e [edit]
-nnoremap <silent> [edit]v :<C-u>e ~/Projects/dotfiles/.vimrc<CR>
+" .vimrc, .gvimrcをそれぞれ ,ee ,eg で開く
+nnoremap <silent> [edit]e :<C-u>e ~/Projects/dotfiles/.vimrc<CR>
 nnoremap <silent> [edit]g :<C-u>e ~/Projects/dotfiles/.gvimrc<CR>
+" 特定の項目をチェックするためのキーバインド
+nnoremap [check] <Nop>
+nmap ,c [check]
 
 """ vundle.vim
 set nocompatible
 filetype off
 
-set rtp+=~/.vim/bundle/vundle/
+set rtp& rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 " http://d.hatena.ne.jp/ZoAmichi/20110515/1305391268
@@ -23,6 +27,7 @@ com! EditBundles :e $bundles_file
 nnoremap <silent> [edit]b :<C-u>EditBundles<CR>
 
 augroup Vundle
+  autocmd!
   au BufWritePost $bundles_file call vundle#config#init()
   au BufWritePost $bundles_file source $bundles_file
   au BufWritePost $bundles_file BundleClean
@@ -118,15 +123,11 @@ set wildmenu
 " 補完を最長一致、各候補の順に行う
 set wildmode=longest,full
 
-" 現在のウィンドウに現在行表示
-au WinLeave * set nocursorline
-au WinEnter,BufRead * set cursorline
-
 " バックアップを作成しない
 set nobackup
 
 " ヤンクしたデータをクリップボードにも送る
-set clipboard+=unnamed
+set clipboard& clipboard+=unnamed
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " キーバインド設定
@@ -196,10 +197,41 @@ noremap <CR> o<Esc>
 noremap <silent> <Leader><Leader> :<C-u>%s/\s\+$//eg<CR>:noh<CR>:up<CR>
 
 " カーソル下のsyntax名を表示
-nnoremap ,s :<C-u>echo synIDattr(synID(line('.'), col('.'), 0), 'name')<CR>
+nnoremap [check]s :<C-u>echo synIDattr(synID(line('.'), col('.'), 0), 'name')<CR>
+
+" mark, register, buffersの内容を表示
+nnoremap [check]m :<C-u>marks<CR>
+nnoremap [check]r :<C-u>registers<CR>
+nnoremap [check]b :<C-u>buffers<CR>
+
+" gcで最後に変更されたテキストを選択する
+nnoremap gc `[v']
 
 " ,reでvimスクリプトを再読込
 nnoremap <silent> ,re :<C-u>execute "source " expand("%:p")<CR>
+
+" http://whileimautomaton.net/2008/08/vimworkshop3-kana-presentation
+" <C-h>でヘルプ
+nnoremap <C-h> :<C-u>help<Space>
+
+" tap pagesの操作
+nnoremap <C-t> <Nop>
+nnoremap <C-t>n :<C-u>tabnew<CR>
+nnoremap <C-t>c :<C-u>tabclose<CR>
+nnoremap <C-t>o :<C-u>tabonly<CR>
+nnoremap <C-t><C-t>  :<C-u>execute 'tabnext' 1 + (tabpagenr() + v:count1 - 1) % tabpagenr('$')<CR>
+nnoremap <C-t>k  gT
+
+" tabs-and-searchesを使いやすくする
+" tt:飛ぶ
+" tj:進む
+" tk:戻る
+" tl:履歴一覧
+nnoremap t  <Nop>
+nnoremap tt  <C-]>
+nnoremap tj  :<C-u>tag<CR>
+nnoremap tk  :<C-u>pop<CR>
+nnoremap tl  :<C-u>tags<CR>
 
 """ インサートモード
 " カーソル移動
@@ -259,7 +291,7 @@ endif
 if strlen($GEM_HOME)
     let g:quickrun_config['ruby.rspec'] = {
 \       'command': "rspec",
-\       'exec'   : "$GEM_HOME/bin/rspec -l {line('.')} %s",
+\       'exec'   : "bundle exec rspec -l {line('.')} %s",
 \       'split'  : "",
 \       'tmpfile': "{tempname()}_spec.rb"
 \   }
@@ -335,14 +367,14 @@ inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
 " [edit]p でスニペットの編集
 nnoremap <silent> [edit]p :<C-u>NeoComplCacheEditSnippets<CR>
 " Enable heavy omni completion.
-" if !exists('g:neocomplcache_omni_patterns')
-    " let g:neocomplcache_omni_patterns = {}
-" endif
-" let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-" "autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-" let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-" let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
-" let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+if !exists('g:neocomplcache_omni_patterns')
+    let g:neocomplcache_omni_patterns = {}
+endif
+let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+"autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
+let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 
 """ unite.vim
 " 入力モードで開始する
@@ -511,8 +543,33 @@ nnoremap <silent> ,es :<C-u>EvervimSearchByQuery<Space>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " オートコマンド設定
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ファイルの拡張子に応じたテンプレートを開く
-autocmd BufNewFile *.rb 0r $HOME/.vim/templates/rb.tpl
+augroup MyAutoCmd
+  autocmd!
+
+  " 現在のウィンドウに現在行表示
+  au WinLeave * set nocursorline
+  au WinEnter,BufRead * set cursorline
+
+  " ファイルの拡張子に応じたテンプレートを開く
+  au BufNewFile *.rb 0r $HOME/.vim/templates/rb.tpl
+
+  " 常に開いているファイルと同じディレクトリをカレントディレクトリにする
+  " http://www15.ocn.ne.jp/~tusr/vim/vim_text2.html#mozTocId567011
+  au   BufEnter *   execute ":lcd " . expand("%:p:h")
+
+  " 日本語入力をリセット
+  au BufNewFile,BufRead * set iminsert=0
+
+  " 前回終了したカーソル行に移動
+  autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
+
+  " 入力モード時、ステータスラインのカラーを変更
+  "augroup InsertHook
+  "autocmd!
+  "autocmd InsertEnter * highlight StatusLine guifg=#ccdc90
+  "autocmd InsertLeave * highlight StatusLine guifg=#2E434C
+augroup END
+
 
 " RSpecのファイルタイプをruby.rspecにする
 augroup myRSpec
@@ -520,30 +577,10 @@ augroup myRSpec
   autocmd BufWinEnter,BufNewFile *_spec.rb set filetype=ruby.rspec
 augroup END
 
-" 常に開いているファイルと同じディレクトリをカレントディレクトリにする
-" http://www15.ocn.ne.jp/~tusr/vim/vim_text2.html#mozTocId567011
-au   BufEnter *   execute ":lcd " . expand("%:p:h")
+"autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,exept,finally,def,class
 
-autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,exept,finally,def,class
-
-" 入力モード時、ステータスラインのカラーを変更
-"augroup InsertHook
-"autocmd!
-"autocmd InsertEnter * highlight StatusLine guifg=#ccdc90
-"autocmd InsertLeave * highlight StatusLine guifg=#2E434C
-
-" 日本語入力をリセット
-au BufNewFile,BufRead * set iminsert=0
-" タブ幅をリセット
-au BufNewFile,BufRead * set tabstop=4 shiftwidth=4
-
-" .rhtmlと.rbでタブ幅を変更
-au BufNewFile,BufRead *.rhtml set nowrap tabstop=2 shiftwidth=2
-au BufNewFile,BufRead *.rb set nowrap tabstop=2 shiftwidth=2
-
-" 前回終了したカーソル行に移動
-autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
-
+" :Utf8 でファイルをutf-8で開き直す
+command! -bang -nargs=? Utf8 edit<bang> ++enc=utf-8 <args>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vimスクリプト
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
