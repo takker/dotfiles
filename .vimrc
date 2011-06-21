@@ -255,6 +255,7 @@ vnoremap v $h
 " プラグイン設定
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ruby-debugger
+map <Leader>c <Nop>
 map <Leader>da :<C-u>Rdebugger<Space>
 map <Leader>dq :<C-u>RdbStop<CR>
 map <Leader>dw :<C-u>RdbCommand<Space>
