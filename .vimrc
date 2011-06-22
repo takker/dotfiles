@@ -259,24 +259,24 @@ vnoremap v $h
 " プラグイン設定
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ruby-debugger
-map <Leader>c <Nop>
-map <Leader>da :<C-u>Rdebugger<Space>
-map <Leader>dq :<C-u>RdbStop<CR>
-map <Leader>dw :<C-u>RdbCommand<Space>
-map <Leader>de :<C-u>RdbEval<Space>
-map <Leader>dx :<C-u>RdbCond<Space>
-map <Leader>dz :<C-u>RdbCatch<Space>
-map <Leader>dl :<C-u>RdbLog<CR>
-map <Leader>db  :call g:RubyDebugger.toggle_breakpoint()<CR>
-map <Leader>dv  :call g:RubyDebugger.open_variables()<CR>
-map <Leader>dm  :call g:RubyDebugger.open_breakpoints()<CR>
-map <Leader>dt  :call g:RubyDebugger.open_frames()<CR>
-map <Leader>ds  :call g:RubyDebugger.step()<CR>
-map <Leader>df  :call g:RubyDebugger.finish()<CR>
-map <Leader>dd  :call g:RubyDebugger.next()<CR>
-map <Leader>dc  :call g:RubyDebugger.continue()<CR>
-map <Leader>dQ  :call g:RubyDebugger.exit()<CR>
-map <Leader>dr  :call g:RubyDebugger.remove_breakpoints()<CR>
+" デフォルトのキーマップはコメントアウトして解除しておくこと
+noremap <Leader>da :<C-u>Rdebugger<Space>
+noremap <Leader>dq :<C-u>RdbStop<CR>
+noremap <Leader>dw :<C-u>RdbCommand<Space>
+noremap <Leader>de :<C-u>RdbEval<Space>
+noremap <Leader>dx :<C-u>RdbCond<Space>
+noremap <Leader>dz :<C-u>RdbCatch<Space>
+noremap <Leader>dl :<C-u>RdbLog<CR>
+noremap <Leader>db  :call g:RubyDebugger.toggle_breakpoint()<CR>
+noremap <Leader>dv  :call g:RubyDebugger.open_variables()<CR>
+noremap <Leader>dm  :call g:RubyDebugger.open_breakpoints()<CR>
+noremap <Leader>dt  :call g:RubyDebugger.open_frames()<CR>
+noremap <Leader>ds  :call g:RubyDebugger.step()<CR>
+noremap <Leader>df  :call g:RubyDebugger.finish()<CR>
+noremap <Leader>dd  :call g:RubyDebugger.next()<CR>
+noremap <Leader>dc  :call g:RubyDebugger.continue()<CR>
+noremap <Leader>dQ  :call g:RubyDebugger.exit()<CR>
+noremap <Leader>dr  :call g:RubyDebugger.remove_breakpoints()<CR>
 
 """ NERDTree
 nmap ,to :<C-u>NERDTree<Space>
@@ -458,15 +458,14 @@ let g:NERDSpaceDelims = 1
 " <Leader>cc => コメントのトグル
 " <Leader>ca => 行末にコメント追加＆編集
 " (Visual)<Leader>c => 選択範囲のコメントトグル
-nmap <Leader>cc <Plug>NERDCommenterToggle
-vmap <Leader>c  <Plug>NERDCommenterToggle
-map  <Leader>ca <Plug>NERDCommenterAppend
+map <Leader>cc <Plug>NERDCommenterToggle
+map <Leader>ca <Plug>NERDCommenterAppend
 " <Leader>cg => 行末までコメント
 " <Leader>cs => 複数行コメント
 " <Leader>cb => ブロック全体をコメントアウト
-nmap <leader>cg <Plug>NERDCommenterToEOL
-vmap <Leader>cs <Plug>NERDCommenterSexy
-vmap <Leader>cb <Plug>NERDCommenterMinimal
+map <Leader>cg <Plug>NERDCommenterToEOL
+map <Leader>cs <Plug>NERDCommenterSexy
+map <Leader>cb <Plug>NERDCommenterMinimal
 
 """ xmpfilter
 " <S-F1>で現在行/選択行にxmpfilterを実行
@@ -743,4 +742,3 @@ function! HandleURI()
 endfunction
 
 nmap ,w :call HandleURI()<CR>
-
