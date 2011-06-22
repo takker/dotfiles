@@ -341,13 +341,13 @@ let g:neocomplcache_max_list = 10
 " 1番目の候補を自動選択
 let g:neocomplcache_enable_auto_select = 1
 " 候補の横に表示される英数字で候補を選択できる
-let g:neocomplcache_enable_quick_match = 1
+" let g:neocomplcache_enable_quick_match = 1
 " quickmatchを毎回表示
-let g:neocomplcache_quick_match_patterns = { 'default' : '' }
+" let g:neocomplcache_quick_match_patterns = { 'default' : '' }
 " quickmatchで使用する文字
-let g:neocomplcache_quick_match_table = {
-            \'1' : 0, '2' : 1, '3' : 2, '4' : 3, '5' : 4, '6' : 5, '7' : 6, '8' : 7, '9' : 8, '0' : 9
-            \}
+" let g:neocomplcache_quick_match_table = {
+            " \'1' : 0, '2' : 1, '3' : 2, '4' : 3, '5' : 4, '6' : 5, '7' : 6, '8' : 7, '9' : 8, '0' : 9
+            " \}
 " _を入力したときに、それを単語の区切りとしてあいまい検索を行う
 let g:neocomplcache_enable_underbar_completion = 1
 " smartcaseを有効にする

@@ -11,8 +11,9 @@ end
 # methodがどこで定義されているかを返す
 def which(obj, method)
   klass = obj.method(method).owner.to_s
-  if klass =~ /\A#<Class:(.+)>\Z/
-    klass = $1
+  address = ":0x[[:xdigit:]]+"
+  if klass =~ /\A#<Class:(?:#(<\w+#{address}>)|(\w+))>\Z/
+    klass = $2 || $1.sub(/#{address}/, "")
     delimiter = "."
   else
     delimiter = "#"
