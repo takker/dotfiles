@@ -247,6 +247,10 @@ inoremap <C-e> <End>
 inoremap <expr> <C-y><C-y> col('.')==1 ? "\<Esc>kywjpa" : "\<Esc>klywjpa"
 inoremap <expr> <C-y><C-e> col('.')==1 ? "\<Esc>jywkpa" : "\<Esc>jlywkpa"
 
+" スペース、改行をundoの区切りにする
+inoremap <Space> <C-g>u<Space>
+inoremap <CR> <C-g>u<CR>
+
 """ ビジュアルモード
 " v2連打で行末まで選択
 vnoremap v $h
@@ -373,7 +377,7 @@ inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 " <C-j>で候補を選択
 inoremap <expr> <C-j> neocomplcache#close_popup()
 " <CR>で候補を選択して改行
-inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+" inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
 " <C-k>で補完をキャンセル
 inoremap <expr> <C-k> neocomplcache#cancel_popup()
 " <C-l>で補完候補の共通文字列を補完する
