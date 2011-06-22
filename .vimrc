@@ -202,7 +202,7 @@ nnoremap [check]s :<C-u>echo synIDattr(synID(line('.'), col('.'), 0), 'name')<CR
 " mark, register, buffersの内容を表示
 nnoremap [check]m :<C-u>marks<CR>
 nnoremap [check]r :<C-u>registers<CR>
-nnoremap [check]b :<C-u>buffers<CR>
+nnoremap [check]b :<C-u>ls<CR>:buffer<Space>
 
 " gcで最後に変更されたテキストを選択する
 nnoremap gc `[v']
