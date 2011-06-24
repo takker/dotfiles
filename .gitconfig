@@ -3,6 +3,7 @@
 	email = t.kashio@gmail.com
 [core]
 	editor = vi
+	excludesfile = /home/takker/.git-excludes
 [color]
 	ui = auto
 [alias]
@@ -10,6 +11,7 @@
 	ci = commit
 	st = status
 	br = branch
+	amend = commit --amend
 	log1 = log --pretty=format:\"[%h] %ad : %s\" --date=short --graph
 	ls = ls-files
 	show-graph = log --graph --abbrev-commit --pretty=oneline

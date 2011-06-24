@@ -28,3 +28,20 @@ abbr        require
 prev_word   '^'
     require "${1}"
     ${0}
+
+# module
+snippet     mod
+abbr        module
+prev_word   '^'
+    module ${1}
+      ${0}
+    end
+
+# class
+snippet     class
+abbr        class
+prev_word   '^'
+    class ${1}
+      ${0}
+    end
+

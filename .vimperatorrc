@@ -17,7 +17,7 @@ map j 5<C-e>
 map k 5<C-y>
 
 "vimperatorrcの再読み込み
-map ,r source! "D:\\Doc\\AppSetting\\firefox\\vimperator\\_vimperatorrc"
+map ,r source! ~/.vimperatorrc
 
 "----------------------------------------------------------
 "qmarks
@@ -25,9 +25,16 @@ map ,r source! "D:\\Doc\\AppSetting\\firefox\\vimperator\\_vimperatorrc"
 "gom,gorのようにgoに続けて入力・新規タブで開くにはgn
 "vimperatorから追加するコマンドは:delqmarks + 文字
 
+" bookmarks
 qmark m https://mail.google.com/
 qmark r https://www.google.com/reader/view/
 qmark t http://www.tumblr.com/
+qmark i http://www.instapaper.com/u
+
+" bookmarklets
+qmark k readability
+qmark l later
+qmark c clip
 
 "----------------------------------------------------------
 "プラグインの設定
