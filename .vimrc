@@ -742,3 +742,22 @@ function! HandleURI()
 endfunction
 
 nmap ,w :call HandleURI()<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Red, Green, Refactorを可視化
+let s:bgcolors = ['snow', '#CC3333', '#006600', 'navy']
+let s:fgcolors = ['black', 'white', 'white', 'white' ]
+let s:i = 0
+
+function! s:ToggleBgcolor()
+  let bgcolor = s:bgcolors[s:i]
+  let fgcolor = s:fgcolors[s:i]
+  exe 'highlight FoldColumn guibg=' . bgcolor
+  exe 'highlight FoldColumn guifg=' . fgcolor
+  " exe 'highlight NonText guibg=' . color
+  let s:i = (s:i + 1) % len(s:fgcolors)
+endfunction
+
+command! TDDToggle call s:ToggleBgcolor()
+nmap ,tdd :TDDToggle<CR>
+
