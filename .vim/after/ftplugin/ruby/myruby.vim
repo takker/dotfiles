@@ -8,6 +8,6 @@ setlocal foldmethod=indent
 
 compiler ruby
 
-" ,cで構文チェック
-nmap <buffer> ,c :<C-u>make -c %<CR>
+" ,ccで構文チェック
+nmap <buffer> ,cc :<C-u>make -c %<CR>
 
